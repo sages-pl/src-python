@@ -1,0 +1,14 @@
+docker run \
+    --name gitea \
+    --detach \
+    --restart always \
+    --network ecosystem \
+    --publish 3000:3000 \
+    --publish 2222:22 \
+    --volume gitea_data:/var/lib/gitea \
+    --volume gitea_config:/etc/gitea \
+    --volume /etc/timezone:/etc/timezone:ro \
+    --volume /etc/localtime:/etc/localtime:ro \
+    gitea/gitea:latest-rootless
+
+docker exec -itu root gitea ash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'

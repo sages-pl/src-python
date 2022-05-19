@@ -1,0 +1,37 @@
+pipeline {
+  agent any
+  triggers { pollSCM('* * * * *') }
+
+  stages {
+    stage('Env Prepare')            { steps { sh 'run/env-prepare' }}
+    stage('Env Setup')              { steps { sh 'run/env-setup' }}
+    stage('Env Debug')              { steps { sh 'run/env-debug' }}
+
+    stage('Test') {
+    parallel {
+        stage('Test Feature')       { steps { sh 'run/test-feature' }}
+        stage('Test Integration')   { steps { sh 'run/test-integration' }}
+        stage('Test Load')          { steps { sh 'run/test-load' }}
+        stage('Test Mutation')      { steps { sh 'run/test-mutation' }}
+        stage('Test Regression')    { steps { sh 'run/test-regression' }}
+        stage('Test Security')      { steps { sh 'run/test-security' }}
+        stage('Test Smoke')         { steps { sh 'run/test-smoke' }}
+        stage('Test Static')        { steps { sh 'run/test-static' }}
+        stage('Test UI')            { steps { sh 'run/test-ui' }}
+        stage('Test Unit')          { steps { sh 'run/test-unit' }}
+    }}
+    stage('Test Report')            { steps { sh 'run/test-report' }}
+
+    stage('Image Build')            { steps { sh 'run/image-build' }}
+    stage('Image Publish')          { steps { sh 'run/image-publish' }}
+    stage('Image Clean')            { steps { sh 'run/image-clean' }}
+
+    stage('Deploy Dev')             { steps { sh 'run/deploy-dev' }}
+    stage('Deploy Test')            { steps { sh 'run/deploy-test' }}
+    stage('Deploy Preprod')         { steps { sh 'run/deploy-preprod' }}
+    stage('Deploy Prod')            { steps { sh 'run/deploy-prod' }}
+  }
+}
+
+// To run all:
+// grep -Po "^[^/].*sh '\K.+(?=')" Jenkinsfile |sh -x

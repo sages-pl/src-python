@@ -1,0 +1,8 @@
+pip
+mypy
+coverage
+flake8
+bandit
+pylint
+lxml
+pylama[all]

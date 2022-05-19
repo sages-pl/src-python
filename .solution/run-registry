@@ -1,0 +1,8 @@
+docker run \
+    --detach \
+    --restart always \
+    --name registry \
+    --net ecosystem \
+    --publish 5000:5000 \
+    --volume registry_data:/var/lib/registry \
+    registry:2

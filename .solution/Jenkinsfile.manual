@@ -1,0 +1,76 @@
+pipeline {
+  agent any
+  stages {
+    stage('Environment') {
+      steps {
+        sh 'env |sort'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'pip install --upgrade -r requirements.dev'
+        sh 'mkdir -p .tmp'
+      }
+    }
+
+    stage('Test') {
+      parallel {
+        stage('Test Unit') {
+          steps {
+            sh 'python3 -m unittest discover -v test'
+          }
+        }
+
+        stage('Test Integration') {
+          steps {
+            sh 'python3 -m doctest -v test/*.py'
+          }
+        }
+
+        stage('Test Security') {
+          steps {
+            sh 'python3 -m bandit --exit-zero --format json --output=.tmp/bandit.json --recursive src'
+          }
+        }
+
+        stage('Test Coverage') {
+          steps {
+            sh 'python3 -m coverage run src'
+            sh 'python3 -m coverage xml -o .tmp/coverage.xml'
+          }
+        }
+
+        stage('Test Static') {
+          steps {
+            sh 'python3 -m flake8 --doctest --output-file=.tmp/flake8.txt src'
+            sh 'python3 -m pylint --exit-zero --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --output=.tmp/pylint.txt --disable=C0114,C0115,C0116,E0401,C0103 src'
+            sh 'python3 -m mypy --ignore-missing-imports --cobertura-xml-report=.tmp src || true'
+          }
+        }
+
+      }
+    }
+
+    stage('Test Report') {
+      steps {
+        sh 'docker run --rm --net=ecosystem -v $(pwd):/usr/src sonarsource/sonar-scanner-cli'
+      }
+    }
+
+    stage('Artifact') {
+      steps {
+        sh 'echo "image build, image publish"'
+      }
+    }
+
+  }
+  environment {
+    PYTHONPATH = 'src'
+    PYTHONWARNINGS = 'always'
+    PYTHONDEBUG = '1'
+    PYTHONASYNCIODEBUG = '1'
+    PYTHONDEVMODE = '1'
+    PYTHONMALLOC = 'debug'
+  }
+}
