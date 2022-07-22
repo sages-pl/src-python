@@ -252,20 +252,32 @@ Static Tests:
 .. code-block:: sh
 
     export PYTHONPATH=src
-
-    ## Type Annotation
     python3 -m mypy --ignore-missing-imports --cobertura-xml-report=.tmp src
 
-    ## Code Style
+Code Style:
+
+.. code-block:: sh
+
+    export PYTHONPATH=src
     python3 -m flake8 --doctest --output-file=.tmp/flake8.txt src
 
-    ## Lint
-    python3 -m pylint --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --output=.tmp/pylint.txt --disable=C0114,C0115,C0116,E0401,C0103 src
+Lint:
 
-    ## Lint
+.. code-block:: sh
+
+    export PYTHONPATH=src
+    python3 -m pylint --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --output=.tmp/pylint.txt --disable=C0114,C0115,C0116,E0401,C0103 src
     python3 -m pylama --verbose --async src/
 
-Publish Test Result:
+Mutation Testing:
+
+.. code-block:: sh
+
+    mutmut run || true
+    mutmut results
+    mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > .tmp/xunit.xml
+
+Test Report:
 
 .. code-block:: sh
 

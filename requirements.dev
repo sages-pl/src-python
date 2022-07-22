@@ -6,3 +6,4 @@ bandit
 pylint
 lxml
 pylama[all]
+mutmut
