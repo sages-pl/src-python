@@ -1,0 +1,60 @@
+## Temporary
+_tmp/
+.tmp/
+*/_tmp*.py
+_temporary.txt
+_temporary.*
+*/_temporary.txt
+**/_temporary.txt
+raw.githubusercontent.com
+python.astrotech.io
+
+## Compiled and environmental
+__pycache__/
+.mypy_cache/
+*.pyc
+*.pyz
+~$*
+*.spec
+.ipynb_checkpoints
+*virtualenv*/
+*venv*/
+.venv/
+
+## Distribution / packaging
+build/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+sdist/
+*.egg-info/
+*.egg
+
+## Django
+*.log
+*.sqlite3
+*.sqlite3-journal
+_media
+
+## Sphinx documentation
+docs/_build/
+_build/
+.build/
+.slide/
+
+## IDE
+.idea
+Untitled.ipynb
+
+## OS
+.DS_Store
+
+## Test
+coverage.xml
+.coverage
+
+## MutMut
+.mutmut-cache
+html/
