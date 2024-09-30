@@ -1,6 +1,6 @@
 Dragon (version alpha)
 ======================
-* Source: https://python.astrotech.io/dragon/alpha.html
+* Source: https://python3.info/dragon/english/about.html
 * Assignment: Dragon (version alpha)
 * Complexity: medium
 * Lines of code: 100 lines
