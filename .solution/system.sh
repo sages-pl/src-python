@@ -12,18 +12,44 @@ echo 'export DOCKER_HOST=unix:///run/user/1000/docker.sock' >> ~/.bashrc
 source "~/.bashrc"
 
 sudo apt update
-sudo apt install -y uidmap docker-buildx
+cat <<EOT | sudo tee "/etc/apparmor.d/home.ubuntu.bin.rootlesskit"
+# ref: https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
+abi <abi/4.0>,
+include <tunables/global>
+
+/home/ubuntu/bin/rootlesskit flags=(unconfined) {
+  userns,
+
+  # Site-specific additions and overrides. See local/README for details.
+  include if exists <local/home.ubuntu.bin.rootlesskit>
+}
+EOT
+sudo systemctl restart apparmor.service
+sudo apt install -y uidmap
 curl https://get.docker.com/rootless |sh -x
+sudo apt install -y docker-buildx
 systemctl --user enable docker
 sudo loginctl enable-linger $(whoami)
 docker network create ecosystem
 
 cat > ~/bin/run-gitea << EOF
+#!/bin/sh
 
+echo "Set flag to print trace of commands"
+set -x
+
+echo "Set flag to exit immediately if a command exits with a non-zero status"
+set -e
+
+echo "Run docker container"
 docker run \\
     --name gitea \\
     --detach \\
     --restart unless-stopped \\
+    --network ecosystem \\
+    --dns 8.8.8.8 \\
+    --publish 3000:3000 \\
+    --publish 2222:22 \\
     --env USER_UID=1000 \\
     --env USER_GID=1000 \\
     --env GITEA__server__ROOT_URL=http://$IP:3000/ \\
@@ -33,50 +59,65 @@ docker run \\
     --env GITEA__database__NAME=... \\
     --env GITEA__database__USER=... \\
     --env GITEA__database__PASSWD=... \\
-    --dns 8.8.8.8 \\
-    --network ecosystem \\
-    --publish 3000:3000 \\
-    --publish 2222:22 \\
     --volume gitea_data:/var/lib/gitea \\
     --volume gitea_config:/etc/gitea \\
     --volume /etc/timezone:/etc/timezone:ro \\
     --volume /etc/localtime:/etc/localtime:ro \\
     gitea/gitea:latest-rootless
 
+echo "Post-run hooks"
 echo "Gitea running on: http://$IP:3000/"
 
 EOF
 
 cat > ~/bin/run-jenkins << EOF
+#!/bin/sh
 
+echo "Set flag to print trace of commands"
+set -x
+
+echo "Set flag to exit immediately if a command exits with a non-zero status"
+set -e
+
+echo "Run docker container"
 docker run \\
     --name jenkins \\
     --detach \\
-    --network ecosystem \\
     --restart unless-stopped \\
+    --network ecosystem \\
+    --dns 8.8.8.8 \\
     --publish 8080:8080 \\
     --volume jenkins_data:/var/jenkins_home \\
     --volume /run/user/1000/docker.sock:/var/run/docker.sock \\
     jenkins/jenkins:lts-alpine
 
-docker exec -u root jenkins apk add python3 py3-pip
 docker exec -u root jenkins apk add docker
+docker exec -u root jenkins apk add python3 py3-pip
+docker exec -u root jenkins mv /usr/lib/python3.12/EXTERNALLY-MANAGED /usr/lib/python3.12/EXTERNALLY-MANAGED.old
 
 chmod o+rw /run/user/1000/docker.sock
 sudo ln -s /home/ubuntu/.local/share/docker/volumes/jenkins_data/_data/ /var/jenkins_home
-mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.old
 
 echo "Jenkins running on: http://$IP:8080/"
 
 EOF
 
 cat > ~/bin/run-sonarqube << EOF
+#!/bin/sh
 
+echo "Set flag to print trace of commands"
+set -x
+
+echo "Set flag to exit immediately if a command exits with a non-zero status"
+set -e
+
+echo "Run docker container"
 docker run \\
     --name sonarqube \\
     --detach \\
     --restart unless-stopped \\
     --network ecosystem \\
+    --dns 8.8.8.8 \\
     --publish 9000:9000 \\
     --volume sonarqube_data:/opt/sonarqube/data \\
     --volume sonarqube_logs:/opt/sonarqube/logs \\
@@ -88,12 +129,21 @@ echo "SonarQube running on: http://$IP:9000/"
 EOF
 
 cat > ~/bin/run-registry << EOF
+#!/bin/sh
 
+echo "Set flag to print trace of commands"
+set -x
+
+echo "Set flag to exit immediately if a command exits with a non-zero status"
+set -e
+
+echo "Run docker container"
 docker run \\
+    --name registry \\
     --detach \\
     --restart unless-stopped \\
-    --name registry \\
     --network ecosystem \\
+    --dns 8.8.8.8 \\
     --publish 5000:5000 \\
     --volume registry_data:/var/lib/registry \\
     registry:latest
@@ -142,16 +192,25 @@ purge_tags_keep_count: 2
 EOF
 
 cat > ~/bin/run-registryui << EOF
+#!/bin/sh
 
+echo "Set flag to print trace of commands"
+set -x
+
+echo "Set flag to exit immediately if a command exits with a non-zero status"
+set -e
+
+echo "Run docker container"
 docker run \\
-    --name registry-ui \\
+    --name registry \\
     --detach \\
     --restart unless-stopped \\
     --network ecosystem \\
-    --publish 8888:8888 \\
-    --volume /home/ubuntu/registry-ui.yml:/opt/config.yml:ro \\
-    quiq/docker-registry-ui:latest
+    --dns 8.8.8.8 \\
+    --publish 5000:5000 \\
+    --volume registry_data:/var/lib/registry \\
+    registry:latest
 
-echo "Registry UI running on: http://$IP:8888/"
+echo "Registry running on: http://$IP:5000/"
 
 EOF

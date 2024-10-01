@@ -1,6 +1,10 @@
-#!/bin/bash
-set -e
+#!/bin/sh
+
+echo "Set flag to print trace of commands"
 set -x
+
+echo "Set flag to exit immediately if a command exits with a non-zero status"
+set -e
 
 # if SONARQUBE_TOKEN is not set, exit with error
 [ "$SONARQUBE_TOKEN" == "" ] && exit 1
@@ -10,8 +14,8 @@ cd /home/ubuntu/src
 python3 -m venv .venv
 . .venv/bin/activate
 
-echo -n > requirements.dev
-echo -n > requirements.prod
+echo -n > requirements.txt
+echo -n > requirements.lock
 ln -s Dockerfile.multistage Dockerfile
 
 mkdir -p run/
@@ -37,6 +41,7 @@ echo 'echo Not Implemented' > run/test-static
 echo 'echo Not Implemented' > run/test-typing
 echo 'echo Not Implemented' > run/test-ui
 echo 'echo Not Implemented' > run/test-unit
+echo 'echo Not Implemented' > run/test-typing
 echo 'echo Not Implemented' > run/test-report
 echo 'echo Not Implemented' > run/image-compile
 echo 'echo Not Implemented' > run/image-build
@@ -48,19 +53,21 @@ echo 'echo Not Implemented' > run/deploy-preprod
 echo 'echo Not Implemented' > run/deploy-prod
 chmod +x run/*
 
+
 cat > Dockerfile.singlestage << EOF
 
 FROM python:3.12-alpine
 WORKDIR /data
 ENV PYTHONPATH=src
-COPY requirements.prod /data/requirements.prod
-RUN pip install --upgrade --no-cache-dir -r /data/requirements.prod
+COPY requirements.lock /data/requirements.lock
+RUN pip install --upgrade --no-cache-dir -r /data/requirements.lock
 COPY src /data/src
 COPY test /data/test
 COPY run /data/run
 CMD python3 /data/src/__main__.py
 
 EOF
+
 
 cat > Dockerfile.multistage << EOF
 
@@ -70,7 +77,7 @@ ENV PYTHONPATH=src
 WORKDIR /data
 
 ## Copy files
-COPY requirements.prod /data/requirements.prod
+COPY requirements.lock /data/requirements.lock
 COPY src /data/src
 COPY test /data/test
 COPY run /data/run
@@ -90,7 +97,7 @@ RUN run/test-functional
 RUN run/test-integration
 RUN run/test-lint
 RUN run/test-load
-# RUN run/test-mutation
+RUN run/test-mutation
 RUN run/test-regression
 RUN run/test-security
 RUN run/test-smoke
@@ -104,16 +111,17 @@ RUN run/image-compile
 
 ## Prepare production ready Image
 FROM python:3.12-alpine
-COPY --from=build /data/game.pyz /game.pyz
-CMD python3 /game.pyz
+COPY --from=build /data/myapp.pyz /myapp.pyz
+CMD python3 /myapp.pyz
 
 EOF
+
 
 cat > sonar-project.properties << EOF
 
 ## Sonar Server
 sonar.host.url=http://sonarqube:9000/
-sonar.login=$SONARQUBE_TOKEN
+sonar.token=$SONARQUBE_TOKEN
 
 ## Software Configuration Management
 sonar.scm.enabled=true
@@ -153,6 +161,7 @@ sonar.python.flake8.reportPaths=.tmp/flake8.txt
 
 EOF
 
+
 cat > Jenkinsfile << EOF
 
 pipeline {
@@ -170,8 +179,8 @@ pipeline {
         stage('Test Codestyle')     { steps { sh 'run/test-codestyle' }}
         stage('Test Coverage')      { steps { sh 'run/test-coverage' }}
         stage('Test Documentation') { steps { sh 'run/test-documentation' }}
-        stage('Test Functional')    { steps { sh 'run/test-functional' }}
         stage('Test Formatter')     { steps { sh 'run/test-formatter' }}
+        stage('Test Functional')    { steps { sh 'run/test-functional' }}
         stage('Test Integration')   { steps { sh 'run/test-integration' }}
         stage('Test Lint')          { steps { sh 'run/test-lint' }}
         stage('Test Load')          { steps { sh 'run/test-load' }}
@@ -199,7 +208,44 @@ pipeline {
 
 EOF
 
+
 cat > pyproject.toml << EOF
+
+[project]
+name = "myproject"
+version = "1.0.0"
+requires-python = ">=3.12"
+readme = "README.md"
+keywords = ["ares", "mars", "nasa", "human-spaceflight"]
+authors = [{name = "John Doe", email = "jdoe@example.com"}]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Version Control",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: System :: Software Distribution",
+]
+
+[project.urls]
+homepage = "https://github.com/myusername/myproject"
+documentation = "https://github.com/myusername/myproject"
+repository = "https://github.com/myusername/myproject.git"
+changelog = "https://github.com/myusername/myproject/releases"
+bugtracker = "https://github.com/myusername/myproject/issues"
 
 [tool.ruff]
 target-version = "py312"
@@ -248,7 +294,9 @@ line-ending = "auto"
 
 EOF
 
+
 cat > run/all << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -256,13 +304,40 @@ set -x
 echo "Set flag to exit immediately if a command exits with a non-zero status"
 set -e
 
-echo "Run all build steps"
-grep -Po "^[^/].*sh '\K.+(?=')" Jenkinsfile |sh -x
+run/build-debug
+run/build-envvars
+run/build-dependencies
+run/build-compile
+run/test-codestyle
+run/test-coverage
+run/test-documentation
+run/test-formatter
+run/test-functional
+run/test-integration
+run/test-lint
+run/test-load
+run/test-mutation
+run/test-regression
+run/test-security
+run/test-smoke
+run/test-static
+run/test-typing
+run/test-ui
+run/test-unit
+run/test-report
+run/image-build
+run/image-push
+run/image-remove
+run/deploy-dev
+run/deploy-test
+run/deploy-preprod
+run/deploy-prod
 
 EOF
 
 
 cat > run/test-all << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -270,12 +345,28 @@ set -x
 echo "Set flag to exit immediately if a command exits with a non-zero status"
 set -e
 
-echo "Run all tests"
-grep -Po "^[^/].*sh '\K.+(?=')" Jenkinsfile |grep run/test |sh -x
+run/test-codestyle
+run/test-coverage
+run/test-documentation
+run/test-formatter
+run/test-functional
+run/test-integration
+run/test-lint
+run/test-load
+run/test-mutation
+run/test-regression
+run/test-security
+run/test-smoke
+run/test-static
+run/test-typing
+run/test-ui
+run/test-unit
 
 EOF
 
+
 cat > run/build-envvars << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -293,7 +384,9 @@ export PYTHONMALLOC=debug
 
 EOF
 
+
 cat > run/build-dependencies << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -305,11 +398,13 @@ echo "Upgrade pip"
 python3 -m pip install --upgrade --no-cache-dir pip
 
 echo "Install dependencies"
-python3 -m pip install --upgrade --no-cache-dir -r requirements.prod
+python3 -m pip install --upgrade --no-cache-dir -r requirements.lock
 
 EOF
 
+
 cat > run/build-debug << EOF
+#!/bin/sh
 
 echo ""
 echo "OS configuration:"
@@ -335,7 +430,9 @@ echo docker exec -it -u \$(whoami) --workdir "\$(pwd)" \$(hostname) sh
 
 EOF
 
+
 cat > run/test-unit << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -351,7 +448,9 @@ python3 -m unittest discover -v test
 
 EOF
 
+
 cat > run/test-integration << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -367,7 +466,9 @@ python3 -m doctest -v test/*.py
 
 EOF
 
+
 cat > run/test-security << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -398,7 +499,9 @@ cat .tmp/bandit.json
 
 EOF
 
+
 cat > run/test-coverage << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -424,7 +527,9 @@ python3 -m coverage xml -o .tmp/coverage.xml
 
 EOF
 
+
 cat > run/test-codestyle << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -449,7 +554,9 @@ cat .tmp/flake8.txt
 
 EOF
 
+
 cat > run/test-documentation << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -471,7 +578,9 @@ python3 -m pydocstyle src/ || true
 
 EOF
 
+
 cat > run/test-lint << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -495,6 +604,7 @@ EOF
 
 
 cat > run/test-static << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -521,6 +631,7 @@ EOF
 
 
 cat > run/test-formatter << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -536,7 +647,9 @@ python3 -m ruff check src/
 
 EOF
 
+
 cat > run/test-typing << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -558,7 +671,9 @@ python3 -m mypy --ignore-missing-imports --cobertura-xml-report=.tmp src || true
 
 EOF
 
+
 cat > run/test-mutation << EOF
+#!/bin/sh
 echo "Set flag to print trace of commands"
 set -x
 
@@ -586,7 +701,9 @@ python3 -m mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore >
 
 EOF
 
+
 cat > run/test-report << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -599,7 +716,9 @@ docker run --rm --net=ecosystem -v \$(pwd):/usr/src sonarsource/sonar-scanner-cl
 
 EOF
 
+
 cat > run/image-compile << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -608,7 +727,7 @@ echo "Set flag to exit immediately if a command exits with a non-zero status"
 set -e
 
 echo "Install all dependencies inside src folder"
-python3 -m pip install --upgrade --no-cache-dir -r requirements.prod --target src
+python3 -m pip install --upgrade --no-cache-dir -r requirements.lock --target src
 
 echo "Remove not needed .dist-info files"
 rm -fr src/*.dist-info
@@ -620,11 +739,13 @@ python3 -m compileall -f src
 # find src -name '*.py' -not -name '__main__.py' -not -name '__init__.py' -delete  # not working for now
 
 echo "Collect all files (and dependencies) into .pyz file (uncompressed zip archive)"
-python3 -m zipapp --python="/usr/bin/env python3" --output=game.pyz src
+python3 -m zipapp --python="/usr/bin/env python3" --output=myapp.pyz src
 
 EOF
 
+
 cat > run/image-build << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -637,7 +758,9 @@ docker build --pull . -t localhost:5000/myapp:\$(git log -1 --format='%h')
 
 EOF
 
+
 cat > run/image-push << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
@@ -650,7 +773,9 @@ docker push localhost:5000/myapp:\$(git log -1 --format='%h')
 
 EOF
 
+
 cat > run/image-remove << EOF
+#!/bin/sh
 
 echo "Set flag to print trace of commands"
 set -x
