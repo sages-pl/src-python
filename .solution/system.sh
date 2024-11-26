@@ -12,7 +12,8 @@ echo 'export DOCKER_HOST=unix:///run/user/1000/docker.sock' >> ~/.bashrc
 source "~/.bashrc"
 
 sudo apt update
-cat <<EOT | sudo tee "/etc/apparmor.d/home.ubuntu.bin.rootlesskit"
+
+cat <<EOF | sudo tee "/etc/apparmor.d/home.ubuntu.bin.rootlesskit"
 # ref: https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
 abi <abi/4.0>,
 include <tunables/global>
@@ -23,7 +24,8 @@ include <tunables/global>
   # Site-specific additions and overrides. See local/README for details.
   include if exists <local/home.ubuntu.bin.rootlesskit>
 }
-EOT
+EOF
+
 sudo systemctl restart apparmor.service
 sudo apt install -y uidmap
 curl https://get.docker.com/rootless |sh -x
@@ -202,15 +204,16 @@ set -e
 
 echo "Run docker container"
 docker run \\
-    --name registry \\
+    --name registry-ui \\
     --detach \\
-    --restart unless-stopped \\
+    --restart always \\
     --network ecosystem \\
-    --dns 8.8.8.8 \\
-    --publish 5000:5000 \\
-    --volume registry_data:/var/lib/registry \\
-    registry:latest
+    --publish 8888:8888 \\
+    --volume /home/ubuntu/registry-ui.yml:/opt/config.yml:ro \\
+    quiq/docker-registry-ui
 
 echo "Registry running on: http://$IP:5000/"
 
 EOF
+
+chmod +x ~/bin/run-*
