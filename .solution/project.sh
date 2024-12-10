@@ -10,14 +10,18 @@ set -e
 [ "$SONARQUBE_TOKEN" == "" ] && exit 1
 
 
+# Dependencies
+# ------------
 cd /home/ubuntu/src
 python3 -m venv .venv
 . .venv/bin/activate
 
 echo -n > requirements.txt
 echo -n > requirements.lock
-ln -s Dockerfile.multistage Dockerfile
 
+
+# Run Files
+# ---------
 mkdir -p run/
 echo 'echo Not Implemented' > run/all
 echo 'echo Not Implemented' > run/about
@@ -53,6 +57,8 @@ echo 'echo Not Implemented' > run/deploy-prod
 chmod +x run/*
 
 
+# Dockerfile
+# ----------
 cat > Dockerfile.singlestage << EOF
 
 FROM python:3.12-alpine
@@ -115,7 +121,11 @@ CMD python3 /myapp.pyz
 
 EOF
 
+ln -s Dockerfile.multistage Dockerfile
 
+
+# Sonar Properties
+# ----------------
 cat > sonar-project.properties << EOF
 
 ## Sonar Server
@@ -169,6 +179,8 @@ sonar.python.ruff.reportPaths=.tmp/ruff.xml
 EOF
 
 
+# Jenkinsfile
+# -----------
 cat > Jenkinsfile << EOF
 
 pipeline {
@@ -223,6 +235,8 @@ pipeline {
 EOF
 
 
+# Pyproject TOML
+# --------------
 cat > pyproject.toml << EOF
 
 [project]
@@ -309,6 +323,8 @@ line-ending = "auto"
 EOF
 
 
+# Run All
+# -------
 cat > run/all << EOF
 #!/bin/sh
 
@@ -352,6 +368,8 @@ run/deploy-prod
 EOF
 
 
+# Test All
+# --------
 cat > run/test-all << EOF
 #!/bin/sh
 
@@ -381,6 +399,8 @@ run/test-unit
 EOF
 
 
+# About
+# -----
 cat > run/about << EOF
 #!/bin/sh
 
@@ -409,6 +429,8 @@ echo docker exec -it -u \$(whoami) --workdir "\$(pwd)" \$(hostname) sh
 EOF
 
 
+# Build Envvars
+# -------------
 cat > run/build-envvars << EOF
 #!/bin/sh
 
@@ -429,6 +451,8 @@ export PYTHONMALLOC=debug
 EOF
 
 
+# Build Dependencies
+# ------------------
 cat > run/build-dependencies << EOF
 #!/bin/sh
 
@@ -447,6 +471,8 @@ python3 -m pip install --upgrade --no-cache-dir -r requirements.lock
 EOF
 
 
+# Test Unit
+# ---------
 cat > run/test-unit << EOF
 #!/bin/sh
 
@@ -465,6 +491,8 @@ python3 -m unittest discover -v test
 EOF
 
 
+# Test Integration
+# ----------------
 cat > run/test-integration << EOF
 #!/bin/sh
 
@@ -483,6 +511,8 @@ python3 -m doctest -v test/*.py
 EOF
 
 
+# Test Security
+# -------------
 cat > run/test-security << EOF
 #!/bin/sh
 
@@ -516,6 +546,8 @@ cat .tmp/bandit.json
 EOF
 
 
+# Test Coverage
+# -------------
 cat > run/test-coverage << EOF
 #!/bin/sh
 
@@ -548,6 +580,8 @@ cat .tmp/coverage.xml
 EOF
 
 
+# Test Codestyle
+# --------------
 cat > run/test-codestyle << EOF
 #!/bin/sh
 
@@ -578,6 +612,8 @@ cat .tmp/flake8.txt
 EOF
 
 
+# Test Documentation
+# ------------------
 cat > run/test-documentation << EOF
 #!/bin/sh
 
@@ -602,6 +638,8 @@ python3 -m pydocstyle src/ || true
 EOF
 
 
+# Test Lint
+# ---------
 cat > run/test-lint << EOF
 #!/bin/sh
 
@@ -630,6 +668,8 @@ cat .tmp/pylint.txt
 EOF
 
 
+# Test Static
+# -----------
 cat > run/test-static << EOF
 #!/bin/sh
 
@@ -658,6 +698,8 @@ cat .tmp/pylama.txt
 EOF
 
 
+# Test Formatter
+# --------------
 cat > run/test-formatter << EOF
 #!/bin/sh
 
@@ -680,6 +722,8 @@ cat .tmp/ruff.xml
 EOF
 
 
+# Test Formatter
+# --------------
 cat > run/test-typing << EOF
 #!/bin/sh
 
@@ -710,6 +754,8 @@ cat .tmp/index.xml
 EOF
 
 
+# Test Mutation
+# -------------
 cat > run/test-mutation << EOF
 #!/bin/sh
 echo "Set flag to print trace of commands"
@@ -744,6 +790,8 @@ cat .tmp/xunit.xml
 EOF
 
 
+# Test Mutation
+# -------------
 cat > run/report << EOF
 #!/bin/sh
 
@@ -763,6 +811,8 @@ docker run --rm --net=ecosystem -v \$(pwd):/usr/src:ro sonarsource/sonar-scanner
 EOF
 
 
+# Image Compile
+# -------------
 cat > run/image-compile << EOF
 #!/bin/sh
 
@@ -790,6 +840,8 @@ python3 -m zipapp --python="/usr/bin/env python3" --output=myapp.pyz src
 EOF
 
 
+# Image Build
+# -----------
 cat > run/image-build << EOF
 #!/bin/sh
 
@@ -805,6 +857,8 @@ docker build --pull . -t localhost:5000/myapp:\$(git log -1 --format='%h')
 EOF
 
 
+# Image Push
+# ----------
 cat > run/image-push << EOF
 #!/bin/sh
 
@@ -820,6 +874,8 @@ docker push localhost:5000/myapp:\$(git log -1 --format='%h')
 EOF
 
 
+# Image Remove
+# ------------
 cat > run/image-remove << EOF
 #!/bin/sh
 

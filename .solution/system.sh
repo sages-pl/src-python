@@ -1,17 +1,32 @@
 #!/bin/bash
-set -e
+
+echo "Set flag to print trace of commands"
 set -x
 
+echo "Set flag to exit immediately if a command exits with a non-zero status"
+set -e
+
+
+# Project
+# -------
 git clone https://github.com/sages-pl/src-python.git
 ln -s /home/ubuntu/src-python /home/ubuntu/src
 cd /home/ubuntu/src
 
+
+# System
+# ------
+sudo apt update
 echo 'export IP=$(curl -s ipecho.net/plain)' >> ~/.bashrc
 echo 'export PATH=/home/ubuntu/bin:$PATH' >> ~/.bashrc
-echo 'export DOCKER_HOST=unix:///run/user/1000/docker.sock' >> ~/.bashrc
 source "~/.bashrc"
 
-sudo apt update
+
+
+# Docker
+# ------
+echo 'export DOCKER_HOST=unix:///run/user/1000/docker.sock' >> ~/.bashrc
+source "~/.bashrc"
 
 cat <<EOF | sudo tee "/etc/apparmor.d/home.ubuntu.bin.rootlesskit"
 # ref: https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
@@ -34,6 +49,9 @@ systemctl --user enable docker
 sudo loginctl enable-linger $(whoami)
 docker network create ecosystem
 
+
+# Gitea
+# -----
 cat > ~/bin/run-gitea << EOF
 #!/bin/sh
 
@@ -72,6 +90,12 @@ echo "Gitea running on: http://$IP:3000/"
 
 EOF
 
+chmod +x ~/bin/run-gitea
+run-gitea
+
+
+# Jenkins
+# -------
 cat > ~/bin/run-jenkins << EOF
 #!/bin/sh
 
@@ -104,6 +128,12 @@ echo "Jenkins running on: http://$IP:8080/"
 
 EOF
 
+chmod +x ~/bin/run-jenkins
+run-jenkins
+
+
+# SonarQube
+# ---------
 cat > ~/bin/run-sonarqube << EOF
 #!/bin/sh
 
@@ -130,6 +160,17 @@ echo "SonarQube running on: http://$IP:9000/"
 
 EOF
 
+chmod +x ~/bin/run-sonarqube
+run-sonarqube
+
+
+# SonarScanner
+# ------------
+docker pull sonarsource/sonar-scanner-cli
+
+
+# Docker Registry
+# ---------------
 cat > ~/bin/run-registry << EOF
 #!/bin/sh
 
@@ -154,6 +195,12 @@ echo "Registry running on: http://$IP:5000/"
 
 EOF
 
+chmod +x ~/bin/run-registry
+run-registry
+
+
+# Registry UI
+# -----------
 cat > ~/registry-ui.yml << EOF
 
 listen_addr: 0.0.0.0:8888
@@ -216,4 +263,5 @@ echo "Registry running on: http://$IP:5000/"
 
 EOF
 
-chmod +x ~/bin/run-*
+chmod +x ~/bin/run-registry-ui
+run-registry-ui
