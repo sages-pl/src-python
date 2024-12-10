@@ -20,7 +20,7 @@ ln -s Dockerfile.multistage Dockerfile
 
 mkdir -p run/
 echo 'echo Not Implemented' > run/all
-echo 'echo Not Implemented' > run/build-debug
+echo 'echo Not Implemented' > run/about
 echo 'echo Not Implemented' > run/build-envvars
 echo 'echo Not Implemented' > run/build-dependencies
 echo 'echo Not Implemented' > run/build-compile
@@ -28,8 +28,8 @@ echo 'echo Not Implemented' > run/test-all
 echo 'echo Not Implemented' > run/test-codestyle
 echo 'echo Not Implemented' > run/test-coverage
 echo 'echo Not Implemented' > run/test-documentation
-echo 'echo Not Implemented' > run/test-functional
 echo 'echo Not Implemented' > run/test-formatter
+echo 'echo Not Implemented' > run/test-functional
 echo 'echo Not Implemented' > run/test-integration
 echo 'echo Not Implemented' > run/test-lint
 echo 'echo Not Implemented' > run/test-load
@@ -41,8 +41,7 @@ echo 'echo Not Implemented' > run/test-static
 echo 'echo Not Implemented' > run/test-typing
 echo 'echo Not Implemented' > run/test-ui
 echo 'echo Not Implemented' > run/test-unit
-echo 'echo Not Implemented' > run/test-typing
-echo 'echo Not Implemented' > run/test-report
+echo 'echo Not Implemented' > run/report
 echo 'echo Not Implemented' > run/image-compile
 echo 'echo Not Implemented' > run/image-build
 echo 'echo Not Implemented' > run/image-push
@@ -142,6 +141,7 @@ sonar.qualitygate.timeout=300
 ## Python Project
 sonar.projectKey=mypythonproject
 sonar.projectName=MyPythonProject
+sonar.projectVersion=1.0.0
 
 ## Python Config
 sonar.language=py
@@ -150,14 +150,21 @@ sonar.sources=src
 sonar.tests=test
 sonar.inclusions=**/*.py
 sonar.exclusions=**/migrations/**,**/*.pyc,**/__pycache__/**
+sonar.python.file.suffixes=py
+sonar.ipynb.file.suffixes=ipynb
 
 ## Python Tools
 sonar.python.xunit.skipDetails=false
 sonar.python.xunit.reportPath=.tmp/xunit.xml
 sonar.python.coverage.reportPaths=.tmp/coverage.xml,.tmp/cobertura.xml
 sonar.python.bandit.reportPaths=.tmp/bandit.json
+sonar.python.mypy.reportPaths=.tmp/index.xml
 sonar.python.pylint.reportPaths=.tmp/pylint.txt
 sonar.python.flake8.reportPaths=.tmp/flake8.txt
+sonar.python.ruff.reportPaths=.tmp/ruff.xml
+
+## Documentation
+# https://docs.sonarsource.com/sonarqube-server/latest/analyzing-source-code/analysis-parameters/
 
 EOF
 
@@ -165,44 +172,51 @@ EOF
 cat > Jenkinsfile << EOF
 
 pipeline {
-  triggers { pollSCM('* * * * *') }
+  triggers {pollSCM('* * * * *')}
   agent any
 
   stages {
-    stage('Build Debug')          { steps { sh 'run/build-debug' }}
-    stage('Build Envvars')        { steps { sh 'run/build-envvars' }}
-    stage('Build Requirements')   { steps { sh 'run/build-dependencies' }}
-    stage('Build Setup')          { steps { sh 'run/build-compile' }}
+    stage('About')           {steps{ sh 'run/about' }}
 
-    stage('Test') {
-    parallel {
-        stage('Test Codestyle')     { steps { sh 'run/test-codestyle' }}
-        stage('Test Coverage')      { steps { sh 'run/test-coverage' }}
-        stage('Test Documentation') { steps { sh 'run/test-documentation' }}
-        stage('Test Formatter')     { steps { sh 'run/test-formatter' }}
-        stage('Test Functional')    { steps { sh 'run/test-functional' }}
-        stage('Test Integration')   { steps { sh 'run/test-integration' }}
-        stage('Test Lint')          { steps { sh 'run/test-lint' }}
-        stage('Test Load')          { steps { sh 'run/test-load' }}
-        stage('Test Mutation')      { steps { sh 'run/test-mutation' }}
-        stage('Test Regression')    { steps { sh 'run/test-regression' }}
-        stage('Test Security')      { steps { sh 'run/test-security' }}
-        stage('Test Smoke')         { steps { sh 'run/test-smoke' }}
-        stage('Test Static')        { steps { sh 'run/test-static' }}
-        stage('Test Typing')        { steps { sh 'run/test-typing' }}
-        stage('Test UI')            { steps { sh 'run/test-ui' }}
-        stage('Test Unit')          { steps { sh 'run/test-unit' }}
+    stage('Build') {stages {
+      stage('Envvars')       {steps{ sh 'run/build-envvars' }}
+      stage('Dependencies')  {steps{ sh 'run/build-dependencies' }}
+      stage('Compile')       {steps{ sh 'run/build-compile' }}
     }}
-    stage('Test Report')            { steps { sh 'run/test-report' }}
 
-    stage('Image Build')            { steps { sh 'run/image-build' }}
-    stage('Image Push')             { steps { sh 'run/image-push' }}
-    stage('Image Remove')           { steps { sh 'run/image-remove' }}
+    stage('Test') {parallel {
+      stage('Codestyle')     {steps{ sh 'run/test-codestyle' }}
+      stage('Coverage')      {steps{ sh 'run/test-coverage' }}
+      stage('Documentation') {steps{ sh 'run/test-documentation' }}
+      stage('Formatter')     {steps{ sh 'run/test-formatter' }}
+      stage('Functional')    {steps{ sh 'run/test-functional' }}
+      stage('Integration')   {steps{ sh 'run/test-integration' }}
+      stage('Lint')          {steps{ sh 'run/test-lint' }}
+      stage('Load')          {steps{ sh 'run/test-load' }}
+      stage('Mutation')      {steps{ sh 'run/test-mutation' }}
+      stage('Regression')    {steps{ sh 'run/test-regression' }}
+      stage('Security')      {steps{ sh 'run/test-security' }}
+      stage('Smoke')         {steps{ sh 'run/test-smoke' }}
+      stage('Static')        {steps{ sh 'run/test-static' }}
+      stage('Typing')        {steps{ sh 'run/test-typing' }}
+      stage('UI')            {steps{ sh 'run/test-ui' }}
+      stage('Unit')          {steps{ sh 'run/test-unit' }}
+    }}
 
-    stage('Deploy Dev')             { steps { sh 'run/deploy-dev' }}
-    stage('Deploy Test')            { steps { sh 'run/deploy-test' }}
-    stage('Deploy Preprod')         { steps { sh 'run/deploy-preprod' }}
-    stage('Deploy Prod')            { steps { sh 'run/deploy-prod' }}
+    stage('Report')            { steps { sh 'run/report' }}
+
+    stage('Image') {stages {
+      stage('Build')         {steps{ sh 'run/image-build' }}
+      stage('Push')          {steps{ sh 'run/image-push' }}
+      stage('Remove')        {steps{ sh 'run/image-remove' }}
+    }}
+
+    stage('Deploy') {stages {
+      stage('Dev')           {steps{ sh 'run/deploy-dev' }}
+      stage('Test')          {steps{ sh 'run/deploy-test' }}
+      stage('Preprod')       {steps{ sh 'run/deploy-preprod' }}
+      stage('Prod')          {steps{ sh 'run/deploy-prod' }}
+    }}
   }
 }
 
@@ -304,10 +318,11 @@ set -x
 echo "Set flag to exit immediately if a command exits with a non-zero status"
 set -e
 
-run/build-debug
+run/about
 run/build-envvars
 run/build-dependencies
 run/build-compile
+run/test-all
 run/test-codestyle
 run/test-coverage
 run/test-documentation
@@ -324,7 +339,8 @@ run/test-static
 run/test-typing
 run/test-ui
 run/test-unit
-run/test-report
+run/report
+run/image-compile
 run/image-build
 run/image-push
 run/image-remove
@@ -365,6 +381,34 @@ run/test-unit
 EOF
 
 
+cat > run/about << EOF
+#!/bin/sh
+
+echo ""
+echo "OS configuration:"
+echo "Hostname: \$(hostname)"
+echo "PWD: \$(pwd)"
+echo "Whoami: \$(whoami)"
+echo "ID: \$(id)"
+echo "PATH: \$(echo \$PATH)"
+
+echo ""
+echo "Python configuration: "
+echo "Executable: \$(which python3)"
+echo "Version: \$(python3 --version)"
+
+echo ""
+echo "Debugging:"
+echo "For Debug uncomment line with sleep:"
+# sleep 3600
+
+echo ""
+echo "While build is on hold, execute:"
+echo docker exec -it -u \$(whoami) --workdir "\$(pwd)" \$(hostname) sh
+
+EOF
+
+
 cat > run/build-envvars << EOF
 #!/bin/sh
 
@@ -399,34 +443,6 @@ python3 -m pip install --upgrade --no-cache-dir pip
 
 echo "Install dependencies"
 python3 -m pip install --upgrade --no-cache-dir -r requirements.lock
-
-EOF
-
-
-cat > run/build-debug << EOF
-#!/bin/sh
-
-echo ""
-echo "OS configuration:"
-echo "Hostname: \$(hostname)"
-echo "PWD: \$(pwd)"
-echo "Whoami: \$(whoami)"
-echo "ID: \$(id)"
-echo "PATH: \$(echo \$PATH)"
-
-echo ""
-echo "Python configuration: "
-echo "Executable: \$(which python3)"
-echo "Version: \$(python3 --version)"
-
-echo ""
-echo "Debugging:"
-echo "For Debug uncomment line with sleep:"
-# sleep 3600
-
-echo ""
-echo "While build is on hold, execute:"
-echo docker exec -it -u \$(whoami) --workdir "\$(pwd)" \$(hostname) sh
 
 EOF
 
@@ -494,7 +510,7 @@ echo "Report will be uploaded to SonarQube"
 python3 -m bandit --exclude test --skip B311 --recursive src --format json --output=.tmp/bandit.json --exit-zero
 
 echo ""
-echo "Show test output"
+echo "Show the results"
 cat .tmp/bandit.json
 
 EOF
@@ -518,12 +534,16 @@ mkdir -p .tmp
 echo "Install dependencies"
 python3 -m pip install --upgrade --no-cache-dir coverage
 
-echo "Run analysis"
+echo "Run coverage analysis"
 python3 -m coverage run src
 
-echo "Create reports"
+echo "Gather reports"
 python3 -m coverage report
 python3 -m coverage xml -o .tmp/coverage.xml
+
+echo ""
+echo "Show the results"
+cat .tmp/coverage.xml
 
 EOF
 
@@ -545,11 +565,14 @@ mkdir -p .tmp
 
 echo "Install dependencies"
 python3 -m pip install --upgrade --no-cache-dir flake8
+python3 -m pip install --upgrade --no-cache-dir pycodestyle
 
 echo "Run tests"
 python3 -m flake8 --doctest --output-file=.tmp/flake8.txt src
+python3 -m pycodestyle -v src/
 
-echo "Display report"
+echo ""
+echo "Show the results"
 cat .tmp/flake8.txt
 
 EOF
@@ -597,8 +620,12 @@ mkdir -p .tmp
 echo "Install dependencies"
 python3 -m pip install --upgrade --no-cache-dir pylint
 
-echo "Run analysis"
+echo "Run verification for most common problems"
 python3 -m pylint --exit-zero --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" --output=.tmp/pylint.txt --disable=C0114,C0115,C0116,E0401,C0103 src
+
+echo ""
+echo "Show the results"
+cat .tmp/pylint.txt
 
 EOF
 
@@ -619,12 +646,13 @@ echo "Create output directory"
 mkdir -p .tmp
 
 echo "Install dependencies"
-python3 -m pip install --upgrade --no-cache-dir pylama
+python3 -m pip install --upgrade --no-cache-dir pylama[all] setuptools
 
-echo "Run analysis"
+echo "Run verification for most common problems"
 python3 -m pylama src --linters 'eradicate,mccabe,mypy,pycodestyle,pydocstyle,pyflakes,pylint,isort' --ignore C100,D101,D102,D107,C113,C0114,C115,C0116,D105,C0115,D100,D103,D106,D104 --skip .venv --format pylint --report .tmp/pylama.txt || true
 
-echo "Display results"
+echo ""
+echo "Show the results"
 cat .tmp/pylama.txt
 
 EOF
@@ -642,8 +670,12 @@ set -e
 echo "Install dependencies"
 python3 -m pip install --upgrade --no-cache-dir ruff
 
-echo "Run analysis"
-python3 -m ruff check src/
+echo "Run verification for most common problems"
+python3 -m ruff check --exit-zero --output-format=junit --output-file=.tmp/ruff.xml src/
+
+echo ""
+echo "Show the results"
+cat .tmp/ruff.xml
 
 EOF
 
@@ -668,6 +700,12 @@ python3 -m pip install --upgrade --no-cache-dir mypy lxml
 
 echo "Run analysis"
 python3 -m mypy --ignore-missing-imports --cobertura-xml-report=.tmp src || true
+python3 -m mypy --ignore-missing-imports --xml-report=.tmp src || true
+
+echo ""
+echo "Show the results"
+cat .tmp/cobertura.xml
+cat .tmp/index.xml
 
 EOF
 
@@ -699,10 +737,14 @@ echo "Create reports"
 python3 -m mutmut results
 python3 -m mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > .tmp/xunit.xml
 
+echo ""
+echo "Show the results"
+cat .tmp/xunit.xml
+
 EOF
 
 
-cat > run/test-report << EOF
+cat > run/report << EOF
 #!/bin/sh
 
 echo "Set flag to print trace of commands"
@@ -711,8 +753,12 @@ set -x
 echo "Set flag to exit immediately if a command exits with a non-zero status"
 set -e
 
+echo "Fix path for SonarScanner"
+sed -r 's|<source>.+?</source>|<source>/usr/src</source>|' -i .tmp/coverage.xml
+sed -r 's|<source>.+?</source>|<source>/usr/src</source>|' -i .tmp/cobertura.xml
+
 echo "Run analysis"
-docker run --rm --net=ecosystem -v \$(pwd):/usr/src sonarsource/sonar-scanner-cli
+docker run --rm --net=ecosystem -v \$(pwd):/usr/src:ro sonarsource/sonar-scanner-cli
 
 EOF
 
