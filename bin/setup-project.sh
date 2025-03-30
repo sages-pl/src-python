@@ -1,6 +1,6 @@
 #!/bin/bash
 # Mind, that this is a bash script for Ubuntu 24.04 LTS
-# run: bash system.sh
+# run: bash project.sh
 
 SONARQUBE_TOKEN="your-sonarqube-token"
 IP=$(curl -s ipecho.net/plain)
@@ -23,7 +23,7 @@ git clone https://github.com/sages-pl/src-python.git /home/ubuntu/src
 
 cd /home/ubuntu/src
 git config --global --add safe.directory /home/ubuntu/src
-git remote set-url origin http://$IP:3000/root/src-python.git
+git remote set-url origin http://root:abcdefghi@$IP:3000/root/src-python.git
 
 
 # Dependencies
@@ -106,7 +106,7 @@ COPY test /data/test
 COPY run /data/run
 
 ## Setup Env
-RUN run/build-debug
+RUN run/about
 RUN run/build-envvars
 RUN run/build-dependencies
 RUN run/build-compile
@@ -167,8 +167,8 @@ sonar.qualitygate.wait=true
 sonar.qualitygate.timeout=300
 
 ## Python Project
-sonar.projectKey=mypythonproject
-sonar.projectName=MyPythonProject
+sonar.projectKey=myproject
+sonar.projectName=MyProject
 sonar.projectVersion=1.0.0
 
 ## Python Config
@@ -775,41 +775,13 @@ EOF
 # Test Mutation
 # -------------
 cat > run/test-mutation << EOF
-#!/bin/sh
-echo "Set flag to print trace of commands"
-set -x
-
-echo "Set flag to exit immediately if a command exits with a non-zero status"
-set -e
-
-echo "Set environment variable"
-export PYTHONPATH=src
-
-echo "Create output directory"
-mkdir -p .tmp
-
-echo "Clear cache from previous analysis"
-rm -fr .mutmut-cache
-
-echo "Install dependencies"
-python3 -m pip install --upgrade --no-cache-dir mutmut
-
-echo "Run analysis"
-python3 -m mutmut run --simple-output --paths-to-mutate src --tests-dir test || true
-
-echo "Create reports"
-python3 -m mutmut results
-python3 -m mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > .tmp/xunit.xml
-
-echo ""
-echo "Show the results"
-cat .tmp/xunit.xml
+echo Not Implemented
 
 EOF
 
 
-# Test Mutation
-# -------------
+# Test Report
+# -----------
 cat > run/report << EOF
 #!/bin/sh
 
