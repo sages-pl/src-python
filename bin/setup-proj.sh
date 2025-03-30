@@ -22,13 +22,14 @@ git config --global user.name "John Doe"
 git config --global user.email "jdoe@example.com"
 git config --global pull.rebase true
 git config --global --add safe.directory /home/ubuntu/src
-git clone https://github.com/sages-pl/src-python.git /home/ubuntu/src
 
+git clone --origin gitea https://github.com/sages-pl/src-python.git /home/ubuntu/src
 cd /home/ubuntu/src
-git remote set-url origin http://root:abcdefghi@$IP:3000/root/src-python.git
+git remote set-url gitea http://root:abcdefghi@$IP:3000/root/src-python.git
 git remote add github https://github.com/sages-pl/src-python.git
-git pull github main
+git pull
 git push
+
 
 
 # Dependencies
