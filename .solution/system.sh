@@ -1,4 +1,10 @@
 #!/bin/bash
+# Mind, that this is a bash script for Ubuntu 24.04 LTS
+# run: bash system.sh
+
+NAME="student"
+IP=$(curl -s ipecho.net/plain)
+
 
 echo "Set flag to print trace of commands"
 set -x
@@ -7,26 +13,20 @@ echo "Set flag to exit immediately if a command exits with a non-zero status"
 set -e
 
 
-# Project
-# -------
-git clone https://github.com/sages-pl/src-python.git
-ln -s /home/ubuntu/src-python /home/ubuntu/src
-cd /home/ubuntu/src
-
-
 # System
 # ------
 sudo apt update
-echo 'export IP=$(curl -s ipecho.net/plain)' >> ~/.bashrc
-echo 'export PATH=/home/ubuntu/bin:$PATH' >> ~/.bashrc
-source "~/.bashrc"
-
+echo "export IP=$IP" >> /home/ubuntu/.bashrc
+echo "export NAME=$NAME" >> /home/ubuntu/.bashrc
+echo "export PS1='\n\[\033[01;32m\]$NAME@$IP\[\033[00m\]: '" >> /home/ubuntu/.bashrc
+echo "export PATH=/home/ubuntu/bin:$PATH" >> /home/ubuntu/.bashrc
+source "/home/ubuntu/.bashrc"
 
 
 # Docker
 # ------
-echo 'export DOCKER_HOST=unix:///run/user/1000/docker.sock' >> ~/.bashrc
-source "~/.bashrc"
+echo 'export DOCKER_HOST=unix:///run/user/1000/docker.sock' >> /home/ubuntu/.bashrc
+source "/home/ubuntu/.bashrc"
 
 cat <<EOF | sudo tee "/etc/apparmor.d/home.ubuntu.bin.rootlesskit"
 # ref: https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
@@ -52,7 +52,7 @@ docker network create ecosystem
 
 # Gitea
 # -----
-cat > ~/bin/run-gitea << EOF
+cat > /home/ubuntu/bin/run-gitea << EOF
 #!/bin/sh
 
 echo "Set flag to print trace of commands"
@@ -90,13 +90,19 @@ echo "Gitea running on: http://$IP:3000/"
 
 EOF
 
-chmod +x ~/bin/run-gitea
-run-gitea
+chmod +x /home/ubuntu/bin/run-gitea
+sh /home/ubuntu/bin/run-gitea
+
+
+# GIT
+# ---
+git config --global user.name "John Doe"
+git config --global user.email "jdoe@example.com"
 
 
 # Jenkins
 # -------
-cat > ~/bin/run-jenkins << EOF
+cat > /home/ubuntu/bin/run-jenkins << EOF
 #!/bin/sh
 
 echo "Set flag to print trace of commands"
@@ -119,7 +125,7 @@ docker run \\
 
 docker exec -u root jenkins apk add docker
 docker exec -u root jenkins apk add python3 py3-pip
-docker exec -u root jenkins mv /usr/lib/python3.12/EXTERNALLY-MANAGED /usr/lib/python3.12/EXTERNALLY-MANAGED.old
+docker exec -u root jenkins rm /usr/lib/python3.12/EXTERNALLY-MANAGED
 
 chmod o+rw /run/user/1000/docker.sock
 sudo ln -s /home/ubuntu/.local/share/docker/volumes/jenkins_data/_data/ /var/jenkins_home
@@ -128,13 +134,13 @@ echo "Jenkins running on: http://$IP:8080/"
 
 EOF
 
-chmod +x ~/bin/run-jenkins
-run-jenkins
+chmod +x /home/ubuntu/bin/run-jenkins
+sh /home/ubuntu/bin/run-jenkins
 
 
 # SonarQube
 # ---------
-cat > ~/bin/run-sonarqube << EOF
+cat > /home/ubuntu/bin/run-sonarqube << EOF
 #!/bin/sh
 
 echo "Set flag to print trace of commands"
@@ -160,8 +166,8 @@ echo "SonarQube running on: http://$IP:9000/"
 
 EOF
 
-chmod +x ~/bin/run-sonarqube
-run-sonarqube
+chmod +x /home/ubuntu/bin/run-sonarqube
+sh /home/ubuntu/bin/run-sonarqube
 
 
 # SonarScanner
@@ -171,7 +177,7 @@ docker pull sonarsource/sonar-scanner-cli
 
 # Docker Registry
 # ---------------
-cat > ~/bin/run-registry << EOF
+cat > /home/ubuntu/bin/run-registry << EOF
 #!/bin/sh
 
 echo "Set flag to print trace of commands"
@@ -195,13 +201,13 @@ echo "Registry running on: http://$IP:5000/"
 
 EOF
 
-chmod +x ~/bin/run-registry
-run-registry
+chmod +x /home/ubuntu/bin/run-registry
+sh /home/ubuntu/bin/run-registry
 
 
 # Registry UI
 # -----------
-cat > ~/registry-ui.yml << EOF
+cat > /home/ubuntu/registry-ui.yml << EOF
 
 listen_addr: 0.0.0.0:8888
 base_path: /
@@ -240,7 +246,7 @@ purge_tags_keep_count: 2
 
 EOF
 
-cat > ~/bin/run-registryui << EOF
+cat > /home/ubuntu/bin/run-registryui << EOF
 #!/bin/sh
 
 echo "Set flag to print trace of commands"
@@ -259,9 +265,10 @@ docker run \\
     --volume /home/ubuntu/registry-ui.yml:/opt/config.yml:ro \\
     quiq/docker-registry-ui
 
-echo "Registry running on: http://$IP:5000/"
+echo "Registry UI running on: http://$IP:8888/"
+
 
 EOF
 
-chmod +x ~/bin/run-registry-ui
-run-registry-ui
+chmod +x /home/ubuntu/bin/run-registryui
+sh /home/ubuntu/bin/run-registryui

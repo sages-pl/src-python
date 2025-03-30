@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+# Mind, that this is a bash script for Ubuntu 24.04 LTS
+# run: bash system.sh
+
+SONARQUBE_TOKEN="your-sonarqube-token"
 
 echo "Set flag to print trace of commands"
 set -x
@@ -7,12 +11,25 @@ echo "Set flag to exit immediately if a command exits with a non-zero status"
 set -e
 
 # if SONARQUBE_TOKEN is not set, exit with error
-[ "$SONARQUBE_TOKEN" == "" ] && exit 1
+[ "$SONARQUBE_TOKEN" = "" ] && exit 1
+
+
+# Directory
+# ---------
+rm -fr /home/ubuntu/src
+mkdir -p /home/ubuntu/src
+git clone https://github.com/sages-pl/src-python.git /home/ubuntu/src
+
+cd /home/ubuntu/src
+git config --global --add safe.directory /home/ubuntu/src
+git remote set-url origin http://$IP:3000/root/src-python.git
 
 
 # Dependencies
 # ------------
 cd /home/ubuntu/src
+sudo apt install -y python3-pip
+sudo apt install -y python3-venv
 python3 -m venv .venv
 . .venv/bin/activate
 
