@@ -23,9 +23,6 @@ to track and evaluate the state of the codebase.
 
 ### Project Analysis
 
-SonarQube performs a **static code analysis** of the project, examining the 
-source code for: 
-
 - **Bugs**: Issues that could cause runtime errors or unexpected behavior.
 - **Vulnerabilities**: Potential security threats such as SQL injection or XSS.
 - **Code Smells**: Maintainability problems that may not be critical but 
@@ -39,9 +36,6 @@ example, the quality gate might require that the project has no critical
 bugs or that test coverage exceeds a certain percentage.   
 
 ### Measures and Trends
-
-Projects display various **measures** and **trends** to help assess overall 
-quality: 
 
 - **Test Coverage**: Percentage of code covered by automated tests.
 - **Duplication**: Percentage of duplicated code in the project.
