@@ -4,7 +4,7 @@ In SonarQube, **permissions** control what actions users and groups can perform 
 
 ## Key Concepts of Global and Project Permissions
 
-### 1. **Global Permissions**
+### 1. Global Permissions
 Global permissions apply across the entire SonarQube instance and are not specific to any individual project. These permissions control the access that users and groups have to system-wide features and administrative functions.
 
 Some common global permissions include:
@@ -15,7 +15,7 @@ Some common global permissions include:
   
 These global permissions are typically assigned to **administrators** or **superusers** who need full control over the SonarQube system.
 
-### 2. **Project Permissions**
+### 2. Project Permissions
 Project permissions are more granular and apply only to specific projects within SonarQube. These permissions control what users and groups can do within an individual project, such as running analysis, reviewing issues, or configuring project-specific settings.
 
 Some common project permissions include:
@@ -26,40 +26,45 @@ Some common project permissions include:
   
 Project permissions help control the level of access and responsibilities of different team members within a particular project.
 
-### 3. **Managing Permissions**
+### 3. Managing Permissions
 Permissions can be assigned to users directly or through groups. By assigning groups to a project or the global system, administrators can easily manage multiple users' permissions at once.
 
 Permissions are managed through the **Administration > Security > Permissions** section in SonarQube, where administrators can assign roles and permissions to individual users or groups.
 
 ---
 
-## Practice Tasks for Students
+## Exercises
 
-### Task 1: Assign Global Permissions
-- **Objective**: Learn how to assign global permissions to users in SonarQube.
-- **Steps**:
-  1. Navigate to **Administration > Security > Permissions**.
-  2. Assign a global permission such as **Administer System** or **Create Projects** to a user or group.
-  3. Verify that the user or group has the correct permissions by attempting to perform an action that requires the new permission.
+### Exercise 1: Assign Global Permissions
 
----
+**Objective**: 
+Learn how to assign global permissions to users in SonarQube.
 
-### Task 2: Assign Project Permissions
-- **Objective**: Understand how to assign project-specific permissions.
-- **Steps**:
-  1. Navigate to **Administration > Security > Permissions** for a specific project.
-  2. Assign project-specific permissions such as **Administer Project** or **Execute Analysis** to a user or group.
-  3. Verify that the user or group can perform the actions allowed by the assigned permissions within the project.
+**Tasks**:
+1. Navigate to **Administration > Security > Permissions**.
+2. Assign a global permission such as **Administer System** or **Create Projects** to a user or group.
+3. Verify that the user or group has the correct permissions by attempting to perform an action that requires the new permission.
 
 ---
 
-### Task 3: Review and Audit Permissions
-- **Objective**: Learn how to review and audit the permissions set in SonarQube.
-- **Steps**:
-  1. Go to **Administration > Security > Permissions**.
-  2. Review the global and project-specific permissions assigned to various users and groups.
-  3. Check if any user or group has excessive permissions and adjust them if necessary.
+### Exercise 2: Assign Project Permissions
+
+**Objective**: 
+Understand how to assign project-specific permissions.
+
+**Tasks**:
+1. Navigate to **Administration > Security > Permissions** for a specific project.
+2. Assign project-specific permissions such as **Administer Project** or **Execute Analysis** to a user or group.
+3. Verify that the user or group can perform the actions allowed by the assigned permissions within the project.
 
 ---
 
-These tasks will help students practice managing and auditing both **global and project permissions** in SonarQube, allowing them to efficiently control user access and maintain security across the platform.
+### Exercise 3: Review and Audit Permissions
+
+**Objective**: 
+Learn how to review and audit the permissions set in SonarQube.
+
+**Tasks**:
+1. Go to **Administration > Security > Permissions**.
+2. Review the global and project-specific permissions assigned to various users and groups.
+3. Check if any user or group has excessive permissions and adjust them if necessary.

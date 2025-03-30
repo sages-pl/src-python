@@ -4,7 +4,7 @@ In SonarQube, **static analysis** refers to the process of examining the source 
 
 ## Key Concepts of Static Analysis and Quality Gates
 
-### 1. **Static Analysis**
+### 1. Static Analysis
 Static analysis in SonarQube is a process that inspects the source code of a project without running it. The analysis is based on:
 - **Rules**: Predefined checks for various code quality issues like bugs, vulnerabilities, and code smells.
 - **Metrics**: Various measures such as complexity, duplication, and test coverage.
@@ -15,7 +15,7 @@ SonarQube uses different analyzers (e.g., Java, JavaScript, C#, etc.) to perform
 - **Code Smells**: Practices that may not necessarily be wrong but could be improved.
 - **Duplications**: Duplicate code sections that may affect maintainability.
 
-### 2. **Quality Gates**
+### 2. Quality Gates
 A **quality gate** is a set of conditions that a project must meet before it is considered ready for deployment or integration. Quality gates allow you to enforce specific rules and metrics for code quality. SonarQube provides a default quality gate, but custom gates can be defined to better suit specific project requirements.
 
 Common conditions for quality gates include:
@@ -26,7 +26,7 @@ Common conditions for quality gates include:
 
 If the project does not meet the quality gate criteria, the analysis will fail, and the build will be marked as "failed" in the CI/CD pipeline.
 
-### 3. **Default Quality Gate**
+### 3. Default Quality Gate
 SonarQube comes with a **default quality gate** that includes conditions for:
 - No new critical issues.
 - No new blocker issues.
@@ -35,7 +35,7 @@ SonarQube comes with a **default quality gate** that includes conditions for:
 
 These conditions ensure that every project analyzed maintains a baseline level of code quality.
 
-### 4. **Custom Quality Gates**
+### 4. Custom Quality Gates
 Administrators can create custom quality gates that enforce specific thresholds for metrics like:
 - **Bugs**: Max number of bugs allowed.
 - **Vulnerabilities**: Maximum number of vulnerabilities permitted.
@@ -46,36 +46,41 @@ Custom quality gates can be tailored for different types of projects and develop
 
 ---
 
-## Practice Tasks for Students
+## Exercises
 
-### Task 1: Review and Modify the Default Quality Gate
-- **Objective**: Learn how to review and adjust the default quality gate settings in SonarQube.
-- **Steps**:
-  1. Navigate to **Administration > Quality Gates** in SonarQube.
-  2. Review the default quality gate and its conditions.
-  3. Modify the conditions, such as increasing the minimum code coverage or changing the allowed number of bugs.
-  4. Apply the modified quality gate to a project.
+### Exercise 1: Review and Modify the Default Quality Gate
 
----
+**Objective**: 
+Learn how to review and adjust the default quality gate settings in SonarQube.
 
-### Task 2: Create and Assign a Custom Quality Gate
-- **Objective**: Practice creating and assigning a custom quality gate to a project.
-- **Steps**:
-  1. Navigate to **Administration > Quality Gates**.
-  2. Create a custom quality gate by specifying conditions like coverage on new code, bug thresholds, and duplication limits.
-  3. Assign the custom quality gate to a project.
-  4. Run an analysis on the project and ensure that it passes or fails based on the custom gate conditions.
+**Tasks**:
+1. Navigate to **Administration > Quality Gates** in SonarQube.
+2. Review the default quality gate and its conditions.
+3. Modify the conditions, such as increasing the minimum code coverage or changing the allowed number of bugs.
+4. Apply the modified quality gate to a project.
 
 ---
 
-### Task 3: Analyze Static Analysis Results and Improve Code Quality
-- **Objective**: Review the static analysis results and fix issues based on SonarQube's findings.
-- **Steps**:
-  1. Run a static analysis on a sample project.
-  2. Review the findings under the **Issues** tab for categories like bugs, vulnerabilities, and code smells.
-  3. Fix the identified issues in the codebase.
-  4. Re-run the analysis to confirm that the issues are resolved and the quality gate passes.
+### Exercise 2: Create and Assign a Custom Quality Gate
+
+**Objective**: 
+Practice creating and assigning a custom quality gate to a project.
+
+**Tasks**:
+1. Navigate to **Administration > Quality Gates**.
+2. Create a custom quality gate by specifying conditions like coverage on new code, bug thresholds, and duplication limits.
+3. Assign the custom quality gate to a project.
+4. Run an analysis on the project and ensure that it passes or fails based on the custom gate conditions.
 
 ---
 
-These tasks will help students familiarize themselves with **static analysis** and **quality gates** in SonarQube, allowing them to enforce and maintain high code quality standards in their projects.
+### Exercise 3: Analyze Static Analysis Results and Improve Code Quality
+
+**Objective**: 
+Review the static analysis results and fix issues based on SonarQube's findings.
+
+**Tasks**:
+1. Run a static analysis on a sample project.
+2. Review the findings under the **Issues** tab for categories like bugs, vulnerabilities, and code smells.
+3. Fix the identified issues in the codebase.
+4. Re-run the analysis to confirm that the issues are resolved and the quality gate passes.
