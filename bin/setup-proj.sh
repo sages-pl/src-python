@@ -27,9 +27,6 @@ git clone --origin gitea https://github.com/sages-pl/src-python.git /home/ubuntu
 cd /home/ubuntu/src
 git remote set-url gitea http://root:abcdefghi@$IP:3000/root/src-python.git
 git remote add github https://github.com/sages-pl/src-python.git
-git pull
-git push
-
 
 
 # Dependencies

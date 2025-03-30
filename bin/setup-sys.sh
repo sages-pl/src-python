@@ -130,6 +130,7 @@ EOF
 
 chmod +x /home/ubuntu/bin/run-jenkins
 sh /home/ubuntu/bin/run-jenkins
+sleep 30
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 
