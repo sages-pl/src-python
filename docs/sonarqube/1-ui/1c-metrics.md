@@ -102,7 +102,8 @@ Navigate the Quality Metrics section and review the project's overall health.
 
 **Tasks**:
 1. Open the **Quality Metrics** section of a project in SonarQube.
-2. Identify the current number of **bugs**, **vulnerabilities**, and **code smells**.
+2. Identify the current number of **bugs**, **vulnerabilities**, 
+   and **code smells**.
 3. Check the **test coverage** and **technical debt** metrics for the project.
 
 ---
@@ -110,21 +111,25 @@ Navigate the Quality Metrics section and review the project's overall health.
 ### Exercise 2: Investigate Duplications and Code Smells
 
 **Objective**: 
-Examine code duplications and code smells to identify potential areas for improvement.
+Examine code duplications and code smells to identify potential areas for 
+improvement. 
 
 **Tasks**:
 1. Go to the **Duplications** section and review the percentage of duplicated code.
 2. Navigate to the **Code Smells** section and filter for the most common issues.
-3. Document at least three examples of duplicated code or code smells that could be addressed.
+3. Document at least three examples of duplicated code or code smells that 
+   could be addressed. 
 
 ---
 
 ### Exercise 3: Analyze Security and Reliability Ratings
 
 **Objective**: 
-Explore the project's security and reliability ratings and understand the associated risks.
+Explore the project's security and reliability ratings and understand the 
+associated risks. 
 
 **Tasks**:
 1. Open the **Security Rating** and **Reliability Rating** sections.
 2. Check the current rating (A, B, C, D, E) for both security and reliability.
-3. Review the critical **vulnerabilities** or **bugs** that might be affecting the project's ratings.
+3. Review the critical **vulnerabilities** or **bugs** that might be 
+   affecting the project's ratings. 

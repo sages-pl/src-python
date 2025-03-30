@@ -97,8 +97,8 @@ Familiarize yourself with the rules in SonarQube.
 
 **Tasks**:
 1. Go to the **Rules** section of SonarQube.
-2. Browse through the available rules and filter them by **category** (e.g.,
-   security, code smell). 
+2. Browse through the available rules and filter them by **category** 
+   (e.g., security, code smell). 
 3. Review the descriptions of at least three rules and note their severity 
    levels. 
 

@@ -14,8 +14,8 @@ spend time on false alarms.
 When a developer identifies a false positive, they can mark it as such in 
 SonarQube. This helps ensure that the issue is not flagged again in future 
 analysis runs. This is typically done through the **Issues** section of 
-SonarQube, where a user can right-click on an issue and choose the **"False 
-Positive"** option.    
+SonarQube, where a user can right-click on an issue and choose the
+**"False Positive"** option.    
 
 ### 2. Excluding Issues
 

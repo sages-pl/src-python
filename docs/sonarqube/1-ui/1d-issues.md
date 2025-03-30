@@ -119,6 +119,9 @@ Learn how to prioritize issues based on severity and impact.
 Understand the impact of code smells and duplicated code.
 
 **Tasks**:
-1. Go to the **Code Smells** section and filter for **Major** and **Minor** issues.
-2. Review the **duplicated code** section and identify parts of the code that need refactoring.
-3. Suggest ways to improve the maintainability of the code by addressing the identified code smells and duplications.
+1. Go to the **Code Smells** section and filter for **Major** 
+   and **Minor** issues.
+2. Review the **duplicated code** section and identify parts of the code 
+   that need refactoring. 
+3. Suggest ways to improve the maintainability of the code by addressing 
+   the identified code smells and duplications. 

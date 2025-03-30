@@ -23,7 +23,6 @@ the quality of their code and take action based on the analysis results.
 - **Code Smells**: The number of maintainability issues.
 - **Duplications**: The percentage of duplicated code in the project.
 - **Test Coverage**: The percentage of code covered by unit tests.
-- **Technical Debt**: The estimated time needed to fix all the issues in the project.
 - **Reliability Rating**: A measure of the severity of bugs.
 - **Security Rating**: A measure of the severity of vulnerabilities.
 - **Maintainability Rating**: A measure of the project's overall maintainability.
