@@ -136,6 +136,7 @@ EOF
 
 chmod +x /home/ubuntu/bin/run-jenkins
 sh /home/ubuntu/bin/run-jenkins
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 
 # SonarQube

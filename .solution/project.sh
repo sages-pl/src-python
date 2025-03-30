@@ -3,6 +3,7 @@
 # run: bash system.sh
 
 SONARQUBE_TOKEN="your-sonarqube-token"
+IP=$(curl -s ipecho.net/plain)
 
 echo "Set flag to print trace of commands"
 set -x
