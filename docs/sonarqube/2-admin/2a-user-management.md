@@ -80,27 +80,22 @@ Learn how to view and manage user profiles in SonarQube.
 3. Select a user and review their profile information, such as:
    - Username
    - Email
-   - Last login date
+   - Last connection
    - Assigned projects (if applicable)
-4. Update the user's profile by editing their **email address** or 
-   **password** (if required). 
-5. Save the changes and confirm that the profile has been updated successfully.
+4. Update the user's **email address** and **password**. 
+5. Save the changes.
 
 ---
 
-## Exercise 2: Locking and Unlocking a User Account
+## Exercise 2: Creating and Deleting Users
 
 **Objective:** 
-Learn how to lock and unlock user accounts in SonarQube.
+Learn how to create and deactivate user accounts in SonarQube.
 
 **Tasks**:
 1. Go to the **User Management** section in the SonarQube interface.
-2. Find a user who is inactive or no longer needs access.
-3. Lock the user account and note the status change in the user profile.
-4. After locking the user, attempt to log in with their credentials (this 
-   should fail). 
-5. Unlock the user account and confirm that the account is accessible again.
-6. Document the steps taken and the changes observed.
+2. Create new user "bob" with password "Abcdefghi!23" and name "Bob".
+3. Deactivate "bob" account deleting user.
 
 ---
 

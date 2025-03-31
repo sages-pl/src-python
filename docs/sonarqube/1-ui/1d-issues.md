@@ -105,9 +105,9 @@ Familiarize yourself with the issues dashboard and how issues are categorized.
 Learn how to prioritize issues based on severity and impact.
 
 **Tasks**:
-1. Go to the **Issues** section and filter for **Blocker** or **Critical** issues.
+1. Go to the **Issues** section and filter for **Blocker** issues.
 2. Review the issues and note their **location** and **type**.
-3. Create a plan to address at least three of the most critical issues.
+3. Discuss how to deal with the most critical issues.
 
 ---
 

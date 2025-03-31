@@ -10,10 +10,10 @@ quality standards.
 
 - **Definition**: Bugs are issues in the code that could cause runtime 
   errors or unexpected behavior.
-- **Severity Levels**: Bugs are typically classified by their severity (e.g.,
-  Blocker, Critical, Major, Minor). Blocker and Critical bugs should be 
-  fixed first, as they can directly impact the functionality of the 
-  application.  
+- **Severity Levels**: Bugs are typically classified by their severity
+  (e.g., Blocker, Critical, Major, Minor). Blocker and Critical bugs
+  should be fixed first, as they can directly impact the functionality
+  of the application.  
 
 ## 2. Vulnerabilities
 
@@ -102,7 +102,7 @@ Navigate the Quality Metrics section and review the project's overall health.
 1. Open the **Quality Metrics** section of a project in SonarQube.
 2. Identify the current number of **bugs**, **vulnerabilities**, 
    and **code smells**.
-3. Check the **test coverage** and **technical debt** metrics for the project.
+3. Check the metrics for the project.
 
 ---
 
@@ -115,8 +115,7 @@ improvement.
 **Tasks**:
 1. Go to the **Duplications** section and review the percentage of duplicated code.
 2. Navigate to the **Code Smells** section and filter for the most common issues.
-3. Document at least three examples of duplicated code or code smells that 
-   could be addressed. 
+3. Discuss how code smells could be addressed. 
 
 ---
 

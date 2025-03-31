@@ -94,7 +94,7 @@ Customize SonarQube's security rules to better fit project needs.
 
 **Tasks**:
 1. Navigate to **Quality Profiles** under **Administration**.
-2. Find the security rules and modify one (e.g., disable or configure a 
-   rule based on project needs). 
+2. Find the security rules and modify one
+   (e.g., disable or configure a rule based on project needs). 
 3. Apply the updated rule set to a project and run a new analysis to see 
    how it affects security scanning. 

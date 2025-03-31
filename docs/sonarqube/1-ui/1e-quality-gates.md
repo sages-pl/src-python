@@ -4,9 +4,9 @@ A **Quality Gate** in SonarQube is a set of conditions that a project must
 meet to be considered "healthy." These conditions are used to ensure that 
 the code meets predefined quality standards. Quality Gates can be 
 customized to include various criteria, such as no critical bugs or 
-vulnerabilities, minimum test coverage, and technical debt ratios. The goal 
-of a Quality Gate is to prevent problematic code from being merged into 
-production or deployed.      
+vulnerabilities, minimum test coverage, and technical debt ratios. 
+The goal  of a Quality Gate is to prevent problematic code from being 
+merged into production or deployed.      
 
 ## 1. Conditions
 
@@ -76,13 +76,13 @@ Learn how to modify the conditions of a Quality Gate.
 
 **Tasks**:
 1. Navigate to the **Quality Gates** section in the **Administration** menu.
-2. Edit the default quality gate and modify a condition (e.g., change the 
-   required test coverage percentage). 
-3. Apply the new quality gate to a specific project and check its status afterward.
+2. Edit the default quality gate and modify a condition 
+   (change the required test coverage percentage to 85%). 
+3. Apply the new quality gate to a specific project.
 
 ---
 
-### Exercise 3: Configure a Quality Gate for a Pull Request
+### Exercise 3: Configure a Quality Gate for a Pull Request (Developer Edition)
 
 **Objective**: 
 Set up a Quality Gate for pull requests to ensure code quality before merging.
