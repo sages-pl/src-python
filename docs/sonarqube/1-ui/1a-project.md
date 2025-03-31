@@ -114,7 +114,6 @@ Understand the key metrics displayed for each project on the main dashboard.
 **Task**:
 1. Review the **Metrics** section displayed in the **Project List Page**.
 2. Identify the following metrics for at least five projects:
-    - **Technical Debt**
     - **Code Smells**
     - **Bugs**
     - **Vulnerabilities**

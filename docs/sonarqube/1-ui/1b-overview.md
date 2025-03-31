@@ -61,7 +61,7 @@ Get familiar with the layout and key information on the Project Overview page.
 
 **Tasks**:
 1. Open the **Project Overview** page for a given project.
-2. Identify and note the **key metrics** (bugs, vulnerabilities, test coverage).
+2. Identify the **key metrics** (bugs, vulnerabilities, test coverage).
 3. Check if the project has passed or failed the **Quality Gate**.
 
 ---
@@ -74,7 +74,7 @@ Learn how to filter and explore issues in a project.
 **Tasks**:
 1. Navigate to the **Issues** section.
 2. Filter issues by severity (Blocker, Critical, Major).
-3. Identify at least three issues that need immediate attention.
+3. Identify issues that need immediate attention.
 
 ---
 
