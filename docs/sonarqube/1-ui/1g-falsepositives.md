@@ -82,10 +82,10 @@ Practice excluding a rule from specific files or sections of the project.
 ### Exercise 3: Use a Suppression Comment to Ignore a False Positive
 
 **Objective**: 
-Learn to use the `//NOSONAR` comment to suppress a specific issue.
+Learn to use the `#NOSONAR` comment to suppress a specific issue.
 
 **Tasks**:
 1. In the code editor, identify a line that SonarQube flags as a false positive.
-2. Add the comment `//NOSONAR` at the end of the line.
+2. Add the comment `#NOSONAR` at the end of the line.
 3. Run a new analysis in SonarQube and verify that the issue is suppressed 
    for that specific line. 

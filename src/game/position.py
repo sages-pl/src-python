@@ -29,3 +29,129 @@ class Position:
         new_x = current_x + right - left
         new_y = current_y + down - up
         self.position_set(x=new_x, y=new_y)
+
+
+
+
+
+
+
+
+def parse(file):
+    for line in file:
+        if line and not line[0] == '#':
+            records = line.split(',')
+            return records
+
+
+
+def parse(file):
+    for line in file:
+        if line and not line.startswith('#'):
+            records = line.split(',')
+            return records
+
+
+
+def parse(file):
+    for line in file:
+        if len(line) != 0 and not line.startswith('#'):
+            records = line.split(',')
+            return records
+
+
+
+def parse(file):
+    for line in file:
+        if len(line) == 0 or line.startswith('#'):
+            continue
+        records = line.split(',')
+        return records
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def parse(file):
+    for line in file:
+        if len(line) == 0:
+            continue
+        if line.startswith('#'):
+            continue
+        records = line.split(',')
+        return records
+
+
+
+
+def parse(file):
+    for line in file:
+        if line and not (line[0] == '#' or line[1] == '#'):
+            records = line.split(',')
+            return records
+
+
+def valid(line):
+    """
+    ...
+    """
+    return line and not (line[0] == '#' or line[1] == '#')
+
+def parse(file):
+    for line in file:
+        if valid(line):
+            records = line.split(',')
+            return records
+
+
+# Complexities
+# computational - how many steps is in your algorithm, avoid nested loops
+# memory - how much memory is used, avoid large data structures
+# cyclomatic - how many paths are in your code, avoid too many branches (ifs, match-case)
+# cognitive - how hard is it to understand your code, avoid complicated logic (not, and, or, xor, lshift, rshift, exotic operators: @=, %=, >>=, <<=, etc)
+
+
+# project-myapp
+# - alice
+# - bob
+#
+#
+#
+# jenkins-users
+# jenkins-admis
+#
+# gitea-users
+# gitea-admis
+#
+# sonarqube-users
+# sonarqube-admins
+#
+#
+#
+#
+#
+# alice:
+# - project-myapp (Sonarqube, Jenkins, Jira, Confluence, ...)
+# - jenkins-users
+# - gitea-users
+# - sonarqube-users
+# - sonarqube-admins
+#
+# sonarqube-admins:
+# - alice
+# - mallory
