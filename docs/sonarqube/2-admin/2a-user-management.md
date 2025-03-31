@@ -6,9 +6,7 @@ Effective user management ensures that the right people have the
 appropriate access to projects, issues, and configurations, helping 
 maintain security and control over the development process.    
 
-## Key Concepts of User Management in SonarQube
-
-### 1. Users
+## 1. Users
 
 Users in SonarQube represent individual people who have access to the 
 system. Users can be created either manually or via integration with 
@@ -21,7 +19,7 @@ external authentication systems (e.g., LDAP, SSO).
   configuration settings.  
 - **Guest Users**: Typically have read-only access to the system and its data.
 
-### 2. Groups
+## 2. Groups
 
 Groups in SonarQube are used to organize users into sets, often based on 
 their roles in the development process. By creating groups, administrators 
@@ -34,7 +32,7 @@ can easily manage permissions for multiple users at once.
   (e.g., frontend developers, backend developers, security experts) 
   and their access levels. 
 
-### 3. Roles and Permissions
+## 3. Roles and Permissions
 
 Roles define what actions users and groups can perform within SonarQube. 
 Permissions can be granted at both the global and project levels. 
@@ -46,7 +44,7 @@ Permissions can be granted at both the global and project levels.
   projects, such as viewing project dashboards, managing project 
   configurations, and running analyses.  
 
-### 4. Authentication and Authorization
+## 4. Authentication and Authorization
 
 SonarQube supports both **internal authentication** (where user accounts 
 are stored within SonarQube itself) and **external authentication** (via 
@@ -54,14 +52,14 @@ integrations such as LDAP, Active Directory, or SSO). External
 authentication helps centralize user management, especially in larger 
 organizations.    
 
-### 5. User and Group Management Interface
+## 5. User and Group Management Interface
 
 Administrators can manage users and groups via the **Administration > 
 Security > Users** and **Administration > Security > Groups** menus. From 
 here, users can be created, edited, deleted, and assigned to various groups,
 and roles can be assigned to control permissions.   
 
-### 6. Audit Logs
+## 6. Audit Logs
 
 SonarQube also provides audit logs that track user actions, such as login 
 attempts, configuration changes, and permission modifications. These logs 

@@ -7,9 +7,7 @@ analysis or the unique context of the project. Dealing with false positives
 is important to ensure that developers focus on genuine issues rather than 
 spend time on false alarms.     
 
-## Handling False Positives
-
-### 1. Marking Issues as False Positives
+## 1. Marking Issues as False Positives
 
 When a developer identifies a false positive, they can mark it as such in 
 SonarQube. This helps ensure that the issue is not flagged again in future 
@@ -17,7 +15,7 @@ analysis runs. This is typically done through the **Issues** section of
 SonarQube, where a user can right-click on an issue and choose the
 **"False Positive"** option.    
 
-### 2. Excluding Issues
+## 2. Excluding Issues
 
 If a specific rule is frequently causing false positives, developers can 
 choose to **exclude** it from the analysis for particular files, classes, 
@@ -26,14 +24,14 @@ rules can be deactivated or excluded from certain parts of the codebase.
 This is a more permanent way of handling a recurring false positive caused 
 by a specific rule.     
 
-### 3. Rule Customization
+## 3. Rule Customization
 
 Sometimes, false positives are due to overly strict or generic rules. In 
 these cases, **customizing rules** or creating custom quality profiles may 
 be helpful. Developers can adjust rule parameters to fit their codebase 
 better or disable the rule entirely if it doesn't apply to the project.   
 
-### 4. Exempting False Positives Using Comments
+## 4. Exempting False Positives Using Comments
 
 SonarQube allows developers to **add comments** directly in the code to 
 exclude specific lines or methods from analysis. For example, developers 
@@ -41,7 +39,7 @@ can add a comment like `//NOSONAR` to suppress a particular issue for a
 specific line of code. This is useful for ignoring false positives without 
 affecting the global settings of the rule.    
 
-### 5. Creating Exceptions for False Positives
+## 5. Creating Exceptions for False Positives
 
 In some cases, issues flagged as false positives may still be important for 
 a subset of users or projects. For example, specific projects might have 

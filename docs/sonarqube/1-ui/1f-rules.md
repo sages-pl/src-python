@@ -6,9 +6,7 @@ issues in the codebase, such as bugs, vulnerabilities, code smells, and
 duplications. Rules help enforce consistency and maintainability by 
 ensuring that the code adheres to best practices and quality standards.    
 
-## Types of Rules
-
-### 1. Code Quality Rules
+## 1. Code Quality Rules
 
 These rules focus on maintaining good coding practices and ensuring that 
 the code is readable, maintainable, and free from technical debt. 
@@ -17,7 +15,7 @@ Example:
 - No method should be too long (long method rule).
 - Variables should have meaningful names (naming convention rule).
 
-### 2. Security Rules
+## 2. Security Rules
 
 Security rules are designed to help identify vulnerabilities in the code 
 that may be exploited by attackers. These rules are critical for ensuring 
@@ -27,7 +25,7 @@ Example:
 - No SQL injection vulnerabilities.
 - Input data must be sanitized to prevent Cross-Site Scripting (XSS).
 
-### 3. Reliability Rules
+## 3. Reliability Rules
 These rules aim to ensure that the code behaves reliably and consistently 
 during execution. They help identify potential bugs and other issues that 
 may lead to runtime errors. 
@@ -36,7 +34,7 @@ Example:
 - Null pointer dereference must be avoided.
 - Ensure proper exception handling.
 
-### 4. Maintainability Rules
+## 4. Maintainability Rules
 
 Maintainability rules ensure that the code is easy to maintain and extend 
 over time. These rules focus on reducing complexity, duplication, and other 
@@ -46,7 +44,7 @@ Examples:
 - Avoid code duplication.
 - Limit the size of classes or methods.
 
-### 5. Performance Rules
+## 5. Performance Rules
 
 Performance rules focus on optimizing the code to ensure it runs 
 efficiently. These rules help identify potential bottlenecks or inefficient 

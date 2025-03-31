@@ -7,50 +7,44 @@ vulnerabilities, code smells, and other quality metrics. Projects in
 SonarQube can be analyzed individually or as part of a larger system, 
 allowing for focused tracking of a single application's health.     
 
-## What is a Project?
-
 A **project** typically corresponds to a single application, service,
 or module that is being analyzed for code quality. It's a container for 
 various metrics, issues, and configuration settings that SonarQube uses 
 to track and evaluate the state of the codebase.   
 
-## Key Features of Projects
-
-### Project Key and Name
+## Project Key and Name
 
 - **Project Key**: A unique identifier for the project.
 - **Project Name**: A human-readable name displayed in the interface.
 
-### Project Analysis
+## Project Analysis
 
 - **Bugs**: Issues that could cause runtime errors or unexpected behavior.
 - **Vulnerabilities**: Potential security threats such as SQL injection or XSS.
 - **Code Smells**: Maintainability problems that may not be critical but 
   can make code harder to understand or maintain. 
 
-### Quality Gate
+## Quality Gate
 
 Each project can be associated with a **Quality Gate**, which is a set of 
 conditions that the project must meet to be considered "healthy." For 
 example, the quality gate might require that the project has no critical 
 bugs or that test coverage exceeds a certain percentage.   
 
-### Measures and Trends
+## Measures and Trends
 
 - **Test Coverage**: Percentage of code covered by automated tests.
 - **Duplication**: Percentage of duplicated code in the project.
 - **Varius Ratings**: Reliability, security, and maintainability ratings
   based on the detected issues.
 
-### Project Dashboard
+## Project Dashboard
 
 Each project has its own **dashboard**, offering a high-level view of its 
 analysis results, including key metrics, issues, trends, and quality gate 
 status.  
 
-## Project Settings and Customization
-
-### Customization
+## Project Customization
 
 - **Rules**: Define which quality and security rules to apply during analysis.
 - **Notifications**: Set up alerts to notify team members about new issues 
@@ -59,7 +53,7 @@ status.
   the project, allowing teams to track the quality of code in various stages 
   of development.  
 
-### Multi-Module Projects
+## Multi-Module Projects
 
 For larger applications with multiple components, SonarQube can handle 
 **multi-module projects**, where each module is treated as a sub-project 

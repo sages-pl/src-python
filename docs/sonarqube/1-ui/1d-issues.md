@@ -6,9 +6,7 @@ code smells and maintainability concerns. Issues are categorized based on
 their severity, type, and location within the code, making it easier for 
 developers to prioritize and address them.    
 
-## Types of Issues
-
-### 1. Bugs
+## 1. Bugs
 
 - **Definition**: Bugs are issues that may lead to runtime errors or 
   unexpected behavior in the application.
@@ -17,7 +15,7 @@ developers to prioritize and address them.
 - **Severity**: Bugs can be classified as Blocker, Critical, Major, Minor, 
   or Info, depending on their impact. 
 
-### 2. Vulnerabilities
+## 2. Vulnerabilities
 
 - **Definition**: Vulnerabilities are security-related issues that can 
   expose the application to attacks, such as SQL injection, Cross-Site 
@@ -27,7 +25,7 @@ developers to prioritize and address them.
 - **Severity**: Like bugs, vulnerabilities are classified by severity 
   (Blocker, Critical, Major, Minor, Info). 
 
-### 3. Code Smells
+## 3. Code Smells
 
 - **Definition**: Code smells are maintainability issues that don't 
   necessarily affect functionality but can make the code harder to understand 
@@ -36,7 +34,7 @@ developers to prioritize and address them.
 - **Impact**: Code smells generally increase the technical debt and make 
   the project harder to maintain in the long term. 
 
-### 4. Duplications
+## 4. Duplications
 
 - **Definition**: Duplicated code refers to identical or similar sections 
   of code repeated in multiple places.

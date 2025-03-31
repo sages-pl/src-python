@@ -8,9 +8,7 @@ vulnerabilities, minimum test coverage, and technical debt ratios. The goal
 of a Quality Gate is to prevent problematic code from being merged into 
 production or deployed.      
 
-## Key Concepts of Quality Gates
-
-### 1. Conditions
+## 1. Conditions
 
 - **No critical or blocker issues**: The project cannot have any critical 
   or blocker bugs or vulnerabilities. 
@@ -21,27 +19,27 @@ production or deployed.
 - **Duplications**: The level of duplicated code must be below a specified 
   percentage. 
 
-### 2. Quality Gate Status
+## 2. Quality Gate Status
 
 - **Passed**: If the project meets all the conditions of the Quality Gate.
 - **Failed**: If any of the conditions are violated.
 - **Unknown**: If the project has not been analyzed recently or has not yet 
   met the requirements for the Quality Gate. 
 
-### 3. Default Quality Gate
+## 3. Default Quality Gate
 
 - No blocker or critical issues.
 - Minimum test coverage.
 - No new code smells.
 
-### 4. Custom Quality Gates
+## 4. Custom Quality Gates
 
 Projects can have custom quality gates to better fit their needs. For 
 example, a project might require a higher test coverage percentage or a 
 stricter limit on technical debt. Custom quality gates can be created by 
 administrators and applied to specific projects or branches.   
 
-### 5. Quality Gate for Pull Requests
+## 5. Quality Gate for Pull Requests
 
 SonarQube can apply quality gates specifically to pull requests. This 
 ensures that only code that meets the quality standards is merged into the 

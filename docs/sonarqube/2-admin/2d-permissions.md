@@ -7,9 +7,7 @@ levels of the system. By managing permissions, administrators can ensure
 that users have the appropriate access to configure, analyze, and interact 
 with SonarQube projects.     
 
-## Key Concepts of Global and Project Permissions
-
-### 1. Global Permissions
+## 1. Global Permissions
 
 Global permissions apply across the entire SonarQube instance and are not 
 specific to any individual project. These permissions control the access 
@@ -28,7 +26,7 @@ Some common global permissions include:
 These global permissions are typically assigned to **administrators** or 
 **superusers** who need full control over the SonarQube system. 
 
-### 2. Project Permissions
+## 2. Project Permissions
 
 Project permissions are more granular and apply only to specific projects 
 within SonarQube. These permissions control what users and groups can do 
@@ -49,7 +47,7 @@ Some common project permissions include:
 Project permissions help control the level of access and responsibilities 
 of different team members within a particular project.  
 
-### 3. Managing Permissions
+## 3. Managing Permissions
 
 Permissions can be assigned to users directly or through groups. By 
 assigning groups to a project or the global system, administrators can 

@@ -4,11 +4,9 @@ Quality metrics in SonarQube provide valuable insights into the health of a
 codebase. These metrics allow developers to track the quality, 
 maintainability, and security of their projects over time. They help 
 identify areas for improvement and ensure that the code meets the required 
-quality standards.    
+quality standards.
 
-## Key Quality Metrics in SonarQube
-
-### 1. Bugs
+## 1. Bugs
 
 - **Definition**: Bugs are issues in the code that could cause runtime 
   errors or unexpected behavior.
@@ -17,7 +15,7 @@ quality standards.
   fixed first, as they can directly impact the functionality of the 
   application.  
 
-### 2. Vulnerabilities
+## 2. Vulnerabilities
 
 - **Definition**: Vulnerabilities are security flaws that can potentially 
   be exploited by attackers to compromise the application or system.
@@ -26,7 +24,7 @@ quality standards.
 - **Severity Levels**: Like bugs, vulnerabilities are categorized into 
   severity levels: Blocker, Critical, Major, and Minor. 
 
-### 3. Code Smells
+## 3. Code Smells
 
 - **Definition**: Code smells are maintainability issues that might not 
   cause immediate functional problems but could make the code harder to 
@@ -37,7 +35,7 @@ quality standards.
   significantly increase the cost and time required to maintain the code in 
   the future.  
 
-### 4. Duplications
+## 4. Duplications
 
 - **Definition**: Duplicated code refers to sections of code that are 
   repeated in multiple places.
@@ -47,7 +45,7 @@ quality standards.
 - **Metric**: Duplications are measured as a percentage of the codebase 
   that is repeated. 
 
-### 5. Test Coverage
+## 5. Test Coverage
 
 - **Definition**: Test coverage measures the percentage of the codebase 
   covered by automated tests.
@@ -56,7 +54,7 @@ quality standards.
 - **Recommended Coverage**: A typical goal is 80% test coverage, but the 
   ideal percentage depends on the project's needs.  
 
-### 6. Technical Debt
+## 6. Technical Debt
 
 - **Definition**: Technical debt is the amount of time required to fix 
   issues in the code that have been identified by SonarQube.
@@ -66,7 +64,7 @@ quality standards.
 - **Metric**: Technical debt is often expressed in hours or days and 
   includes the time needed to fix bugs, vulnerabilities, and code smells. 
 
-### 7. Reliability Rating
+## 7. Reliability Rating
 
 - **Definition**: The reliability rating measures the overall reliability 
   of the project based on the severity and number of bugs.
@@ -75,7 +73,7 @@ quality standards.
 - **Impact**: A high reliability rating means that the project is less 
   likely to experience issues that could affect its functionality. 
 
-### 8. Security Rating
+## 8. Security Rating
 
 - **Definition**: The security rating measures the overall security of the 
   project based on the number and severity of vulnerabilities.
@@ -83,7 +81,7 @@ quality standards.
 - **Goal**: A high security rating indicates fewer vulnerabilities and a 
   more secure application. 
 
-### 9. Maintainability Rating
+## 9. Maintainability Rating
 
 - **Definition**: The maintainability rating evaluates how easy it is to 
   maintain and extend the project's codebase.

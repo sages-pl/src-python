@@ -7,16 +7,14 @@ communicate with SonarQube without exposing sensitive credentials such as
 usernames and passwords. They are commonly used for project analysis, API 
 access, or integration with build tools and CI systems.     
 
-## Key Concepts of Tokens in SonarQube
-
-### 1. What is a Token?
+## 1. What is a Token?
 
 A token is a unique, secure string of characters that acts as an 
 alternative to using a username and password. When performing automated 
 tasks such as running SonarQube analysis or accessing the SonarQube API, 
 users or CI/CD tools can use tokens for authentication.   
 
-### 2. Types of Tokens
+## 2. Types of Tokens
 
 - **User Tokens**: Created by individual users and associated with their 
 account. These tokens provide access based on the permissions of the user.  
@@ -24,7 +22,7 @@ account. These tokens provide access based on the permissions of the user.
 systems or CI/CD pipelines. These tokens typically have project-specific 
 access and are used to automate processes.  
 
-### 3. Creating and Managing Tokens
+## 3. Creating and Managing Tokens
 
 Tokens can be generated in SonarQube through the **My Account > Security** 
 section. Users can create tokens that are tied to their individual account, 
@@ -34,14 +32,14 @@ Once a token is created, SonarQube does not store the value of the token
 for security reasons, so it must be copied and stored securely at the time 
 of creation.  
 
-### 4. Revoking Tokens
+## 4. Revoking Tokens
 
 If a token is compromised or no longer needed, it can be revoked through 
 the **My Account > Security** section. Once revoked, the token will no 
 longer be valid, and any system relying on that token will no longer be 
 able to authenticate with SonarQube.   
 
-### 5. Token Use Cases
+## 5. Token Use Cases
 
 - **CI/CD Integration**: Automate the analysis of projects during build or 
   deployment pipelines. 
@@ -50,7 +48,7 @@ able to authenticate with SonarQube.
 - **Third-Party Tools**: Tools such as SonarScanner, Jenkins, or GitLab CI 
   can use tokens for connecting with SonarQube. 
 
-### 6. Token Security
+## 6. Token Security
 
 Tokens are a secure way to authenticate without sharing passwords. However, 
 it is important to treat tokens as sensitive information and store them 

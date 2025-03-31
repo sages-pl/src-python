@@ -7,9 +7,7 @@ the group level rather than individually. By organizing users into groups,
 SonarQube can ensure that the right people have access to the right 
 projects and features.     
 
-## Key Concepts of Group Management in SonarQube
-
-### 1. What Are Groups?
+## 1. What Are Groups?
 
 A group is a collection of users who share similar roles or 
 responsibilities within the SonarQube platform. For example, you could have 
@@ -17,7 +15,7 @@ groups for different development teams (e.g., **Frontend Team**, **Backend
 Team**, **QA Team**) or roles (e.g., **Administrators**, **Developers**, 
 **Reviewers**).     
 
-### 2. Creating and Managing Groups
+## 2. Creating and Managing Groups
 
 Administrators can create custom groups in SonarQube to manage user access 
 and permissions more effectively. Each group can have different roles, and 
@@ -26,7 +24,7 @@ members of a group will inherit those roles and permissions.
 - To create a group, navigate to **Administration > Security > Groups** and click **Create Group**.
 - Once created, users can be added to the group manually or in bulk.
 
-### 3. Assigning Roles to Groups
+## 3. Assigning Roles to Groups
 
 Groups can have roles assigned that define what actions the members of the 
 group can perform in SonarQube. There are two primary types of roles: 
@@ -41,7 +39,7 @@ example, you could assign the **Developer** role to a **Frontend Team**
 group, giving them access to specific functionality related to development 
 but not administrative tasks.   
 
-### 4. Permissions and Access Control
+## 4. Permissions and Access Control
 
 - **Global Permissions**: Such as **Administer System**, **View System**, etc.
 - **Project Permissions**: Such as **Administer Project**,
@@ -50,7 +48,7 @@ but not administrative tasks.
 By associating users with groups and assigning appropriate roles, 
 administrators can ensure that users have the correct level of access. 
 
-### 5. Audit and Monitoring
+## 5. Audit and Monitoring
 
 SonarQube also offers audit logs to track changes related to group 
 management. Administrators can monitor when users are added or removed from 

@@ -13,9 +13,7 @@ leveraging SAST, developers can address security concerns during the
 development phase, reducing the cost and complexity of fixing 
 vulnerabilities later in the deployment process.    
 
-## Key Features of SAST in SonarQube
-
-### 1. Security Vulnerabilities Detection
+## 1. Security Vulnerabilities Detection
 
 - **SQL Injection**: Unchecked user inputs could allow attackers to 
   manipulate database queries. 
@@ -24,21 +22,21 @@ vulnerabilities later in the deployment process.
 - **Hardcoded Secrets**: Detection of hardcoded passwords, API keys, and 
   other sensitive information in the code. 
 
-### 2. Customizable Security Rules
+## 2. Customizable Security Rules
 
 SonarQube provides a wide set of built-in security rules that help detect 
 common vulnerabilities. These rules can be customized to better fit the 
 specific needs of a project or organization, ensuring that security 
 standards align with the project's goals.   
 
-### 3. Integration with Security Plugins
+## 3. Integration with Security Plugins
 
 SonarQube's SAST capabilities are often enhanced by integrating additional 
 security plugins (such as the **SonarQube Security Plugin** or 
 **SonarLint**), which offer more advanced security checks and deeper code 
 analysis for security flaws.   
 
-### 4. Security Hotspots
+## 4. Security Hotspots
 
 SonarQube introduces the concept of **Security Hotspots**, which are 
 potential security issues that might need manual review. These are areas of 
@@ -47,14 +45,14 @@ to assess the severity and validity of the issue. It flags areas of the
 code for review, allowing teams to focus on critical sections of the code 
 that require further investigation.     
 
-### 5. Risk-Based Prioritization
+## 5. Risk-Based Prioritization
 
 Security issues found by SAST are categorized and prioritized by their 
 severity (e.g., Blocker, Critical, Major). This allows developers to focus 
 on the most critical vulnerabilities first, ensuring the most pressing 
 security concerns are addressed early in the development lifecycle.   
 
-### 6. Continuous Scanning
+## 6. Continuous Scanning
 
 SonarQube continuously analyzes code during integration cycles, which means 
 that every commit and pull request can be automatically scanned for 

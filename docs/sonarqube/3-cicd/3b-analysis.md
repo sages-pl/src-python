@@ -9,9 +9,7 @@ code quality remains high by setting thresholds for key quality metrics. If
 the code doesn't meet the quality gate requirements, it can fail the 
 analysis, preventing poor-quality code from being merged or deployed.       
 
-## Key Concepts of Static Analysis and Quality Gates
-
-### 1. Static Analysis
+## 1. Static Analysis
 
 Static analysis in SonarQube is a process that inspects the source code of 
 a project without running it. The analysis is based on: 
@@ -30,7 +28,7 @@ The results are categorized into:
 - **Code Smells**: Practices that may not necessarily be wrong but could be improved.
 - **Duplications**: Duplicate code sections that may affect maintainability.
 
-### 2. Quality Gates
+## 2. Quality Gates
 
 A **quality gate** is a set of conditions that a project must meet before 
 it is considered ready for deployment or integration. Quality gates allow 
@@ -51,7 +49,7 @@ Common conditions for quality gates include:
 If the project does not meet the quality gate criteria, the analysis will 
 fail, and the build will be marked as "failed" in the CI/CD pipeline. 
 
-### 3. Default Quality Gate
+## 3. Default Quality Gate
 
 - No new critical issues.
 - No new blocker issues.
@@ -61,7 +59,7 @@ fail, and the build will be marked as "failed" in the CI/CD pipeline.
 These conditions ensure that every project analyzed maintains a baseline 
 level of code quality. 
 
-### 4. Custom Quality Gates
+## 4. Custom Quality Gates
 
 Administrators can create custom quality gates that enforce specific 
 thresholds for metrics like: 

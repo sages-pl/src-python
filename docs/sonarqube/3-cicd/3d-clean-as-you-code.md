@@ -13,9 +13,7 @@ written with minimal defects and aligns with best practices from the very
 start. This concept promotes proactive issue resolution, reducing the risk 
 of code defects and improving maintainability over time.    
 
-## Key Concepts of Clean as You Code
-
-### 1. Continuous Quality Checks
+## 1. Continuous Quality Checks
 
 SonarQube helps teams to continuously check for code quality issues as new 
 code is committed, typically in a **Continuous Integration (CI)** pipeline. 
@@ -23,7 +21,7 @@ When each commit triggers an analysis, developers receive immediate
 feedback on new issues, such as bugs, vulnerabilities, or code smells, 
 enabling them to address these issues right away.    
 
-### 2. Quality Gates
+## 2. Quality Gates
 
 In the **Clean as You Code** model, **quality gates** are used to enforce 
 specific criteria that new code must meet before it can be merged into the 
@@ -37,7 +35,7 @@ For example:
 Quality gates ensure that developers don't introduce new issues into the 
 codebase and that only high-quality code is allowed to proceed. 
 
-### 3. Immediate Feedback
+## 3. Immediate Feedback
 
 The concept relies heavily on providing **immediate feedback** to 
 developers through SonarQube's integration with CI tools like Jenkins, 
@@ -45,14 +43,14 @@ GitLab CI, or GitHub Actions. This way, developers are notified of any
 issues as soon as possible and can address them before they become part of 
 the final product.    
 
-### 4. Incremental Analysis
+## 4. Incremental Analysis
 
 Rather than analyzing the entire codebase each time, SonarQube performs 
 **incremental analysis** on the code that has changed. This allows 
 developers to focus on fixing only the newly introduced issues, avoiding 
 the need to recheck the entire codebase.   
 
-### 5. Tracking Technical Debt
+## 5. Tracking Technical Debt
 
 SonarQube tracks **technical debt** by measuring the time it would take to 
 fix the identified issues. By continuously addressing code issues as they 

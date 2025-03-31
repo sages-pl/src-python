@@ -7,9 +7,7 @@ Continuous Integration (CI) processes or local builds. SonarScanner is
 typically integrated with build tools like Maven, Gradle, or through direct 
 command-line execution.     
 
-## Key Concepts of SonarScanner
-
-### 1. What is SonarScanner?
+## 1. What is SonarScanner?
 
 SonarScanner is the official scanner used to send project analysis results 
 to a SonarQube instance. It reads the source code, applies quality rules, 
@@ -17,7 +15,7 @@ and then reports back with information about bugs, vulnerabilities, code
 smells, and other quality metrics. SonarScanner can be used for different 
 types of projects, including Java, C#, Python, JavaScript, and more.    
 
-### 2. Types of SonarScanner
+## 2. Types of SonarScanner
 
 - **SonarScanner for Maven**: An integration for Maven-based projects. It 
   automatically integrates with Maven's lifecycle to trigger analysis. 
@@ -26,7 +24,7 @@ types of projects, including Java, C#, Python, JavaScript, and more.
 - **SonarScanner CLI**: The standalone version of SonarScanner that can be 
   run manually from the command line for various types of projects. 
 
-### 3. SonarScanner Configuration
+## 3. SonarScanner Configuration
 
 - **sonar-project.properties**: This is a key configuration file that 
   SonarScanner uses to gather information about the project. It includes 
@@ -38,7 +36,7 @@ types of projects, including Java, C#, Python, JavaScript, and more.
   can also provide configuration properties directly through command-line 
   flags. 
 
-### 4. Common Configuration Properties
+## 4. Common Configuration Properties
  
 - `sonar.projectKey`: Unique identifier for the project.
 - `sonar.projectName`: Name of the project.
@@ -46,7 +44,7 @@ types of projects, including Java, C#, Python, JavaScript, and more.
 - `sonar.sources`: Directory containing the source code to analyze.
 - `sonar.host.url`: URL of the SonarQube server (e.g., `http://localhost:9000`)
 
-### 5. Running SonarScanner
+## 5. Running SonarScanner
 
 - **Maven**: `mvn sonar:sonar`
 - **Gradle**: `gradle sonarqube`
