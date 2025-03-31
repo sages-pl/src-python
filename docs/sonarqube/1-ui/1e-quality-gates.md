@@ -4,7 +4,7 @@ A **Quality Gate** in SonarQube is a set of conditions that a project must
 meet to be considered "healthy." These conditions are used to ensure that 
 the code meets predefined quality standards. Quality Gates can be 
 customized to include various criteria, such as no critical bugs or 
-vulnerabilities, minimum test coverage, and technical debt ratios. 
+vulnerabilities, minimum test coverage ratios. 
 The goal  of a Quality Gate is to prevent problematic code from being 
 merged into production or deployed.      
 
@@ -13,9 +13,7 @@ merged into production or deployed.
 - **No critical or blocker issues**: The project cannot have any critical 
   or blocker bugs or vulnerabilities. 
 - **Test coverage**: The project must have a minimum percentage of unit 
-  test coverage (e.g., 80%). 
-- **Technical debt ratio**: The ratio of technical debt to the total cost 
-  of the project must not exceed a certain threshold (e.g., 5%). 
+  test coverage (e.g., 80%).
 - **Duplications**: The level of duplicated code must be below a specified 
   percentage. 
 

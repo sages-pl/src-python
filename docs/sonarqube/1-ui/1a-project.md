@@ -84,10 +84,8 @@ Familiarize yourself with the main dashboard and its features.
    - **Project Name**
    - **Quality Gate Status** (e.g., Passed/Failed)
    - **Last Analysis Date**
-   - **Technical Debt**
 4. Try sorting the list of projects by:
    - Last Analysis Date
-   - Technical Debt
    - Quality Gate Status
 
 ---
@@ -102,7 +100,7 @@ Learn to interpret the quality gate status for projects.
 2. Identify which projects have passed or failed the quality gate.
 3. Filter the projects to show only the ones that **failed** the quality gate.
 4. Take note of any patterns in projects that are failing the quality gate. 
-   Is it related to technical debt, bugs, vulnerabilities, or code smells?
+   Is it related to bugs, vulnerabilities, or code smells?
 
 ---
 

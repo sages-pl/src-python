@@ -54,15 +54,13 @@ quality standards.
 - **Recommended Coverage**: A typical goal is 80% test coverage, but the 
   ideal percentage depends on the project's needs.  
 
-## 6. Technical Debt
+## 6. Security Rating
 
-- **Definition**: Technical debt is the amount of time required to fix 
-  issues in the code that have been identified by SonarQube.
-- **Impact**: High technical debt indicates that the code has numerous 
-  issues that require time and effort to resolve. Reducing technical debt 
-  improves the maintainability of the code over time.
-- **Metric**: Technical debt is often expressed in hours or days and 
-  includes the time needed to fix bugs, vulnerabilities, and code smells. 
+- **Definition**: The security rating measures the overall security of the 
+  project based on the number and severity of vulnerabilities.
+- **Scale**: Like reliability, security is rated from A (best) to E (worst).
+- **Goal**: A high security rating indicates fewer vulnerabilities and a 
+  more secure application. 
 
 ## 7. Reliability Rating
 
@@ -73,15 +71,7 @@ quality standards.
 - **Impact**: A high reliability rating means that the project is less 
   likely to experience issues that could affect its functionality. 
 
-## 8. Security Rating
-
-- **Definition**: The security rating measures the overall security of the 
-  project based on the number and severity of vulnerabilities.
-- **Scale**: Like reliability, security is rated from A (best) to E (worst).
-- **Goal**: A high security rating indicates fewer vulnerabilities and a 
-  more secure application. 
-
-## 9. Maintainability Rating
+## 8. Maintainability Rating
 
 - **Definition**: The maintainability rating evaluates how easy it is to 
   maintain and extend the project's codebase.

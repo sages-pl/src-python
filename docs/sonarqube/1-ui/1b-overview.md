@@ -43,7 +43,7 @@ test coverage exceeds a certain threshold.
 - **Measures**: A detailed view of the project's quality metrics over time, 
   such as lines of code, complexity, and duplications.
 - **Trends**: Graphs that show the evolution of key metrics like test 
-  coverage, technical debt, and quality ratings over time. 
+  coverage, and quality ratings over time. 
 
 ## 6. Recent Activity
 
@@ -78,10 +78,10 @@ Learn how to filter and explore issues in a project.
 
 ---
 
-### Exercise 3: Review Test Coverage and Technical Debt
+### Exercise 3: Review Test Coverage
 
 **Objective**: 
-Analyze test coverage and technical debt in the project.
+Analyze test coverage in the project.
 
 **Tasks**:
 1. Go to the **Test Coverage** section.

@@ -48,14 +48,7 @@ the final product.
 Rather than analyzing the entire codebase each time, SonarQube performs 
 **incremental analysis** on the code that has changed. This allows 
 developers to focus on fixing only the newly introduced issues, avoiding 
-the need to recheck the entire codebase.   
-
-## 5. Tracking Technical Debt
-
-SonarQube tracks **technical debt** by measuring the time it would take to 
-fix the identified issues. By continuously addressing code issues as they 
-occur, technical debt is minimized, and developers can maintain a cleaner, 
-more efficient codebase.   
+the need to recheck the entire codebase.
 
 ---
 
